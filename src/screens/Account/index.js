@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import NavBar from "../../components/NavBar";
 import { colors, text } from "../../utils/colors";
 
-const Home = ({ navigation }) => {
+const Account = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text>Trang chủ</Text>
+        <Text>Tài khoản</Text>
       </View>
-      <NavBar navigation={navigation} activeIndex={0} />
+      <NavBar navigation={navigation} activeIndex={3} />
     </View>
   );
 };
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Account;

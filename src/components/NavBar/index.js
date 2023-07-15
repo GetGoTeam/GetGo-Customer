@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import NavBarItem from "./NavBarItem";
 import { text } from "./../../utils/colors";
 import { faBell, faHouse, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -8,30 +8,43 @@ const items = [
   {
     title: "Trang chủ",
     icon: faHouse,
+    navigate: "Home",
   },
   {
     title: "Hoạt động",
     icon: faPenToSquare,
+    navigate: "Activities",
   },
   {
     title: "Thông báo",
     icon: faBell,
+    navigate: "Notifications",
   },
   {
     title: "Tài khoản",
     icon: faCircleUser,
+    navigate: "Account",
   },
 ];
 
-export default function NavBar() {
+const Navbar = (props) => {
+  const { activeIndex, navigation } = props;
+
   return (
     <View style={styles.container}>
       {items.map((item, index) => (
-        <NavBarItem index={index} title={item.title} icon={item.icon} />
+        <NavBarItem
+          key={index}
+          title={item.title}
+          icon={item.icon}
+          navigation={navigation}
+          active={activeIndex === index ? true : false}
+          navigate={item.navigate}
+        />
       ))}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -44,3 +57,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
   },
 });
+
+export default Navbar;

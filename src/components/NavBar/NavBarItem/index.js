@@ -1,16 +1,18 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { colors, text } from "./../../../utils/colors";
 
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 export default function NavBarItem(props) {
-  const { title, icon, active } = props;
+  const { title, icon, active, navigation, navigate } = props;
 
   return (
-    <View style={styles.container}>
-      <FontAwesomeIcon icon={icon} style={[styles.icon, active ? styles.active : ""]} size={25} />
-      <Text style={[styles.title, active ? styles.active : ""]}>{title}</Text>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate(navigate)}>
+      <View style={styles.container}>
+        <FontAwesomeIcon icon={icon} style={[styles.icon, active ? styles.active : ""]} size={25} />
+        <Text style={[styles.title, active ? styles.active : ""]}>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

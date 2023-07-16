@@ -13,11 +13,7 @@ const MainStackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: colors.primary_200,
-        },
-        headerTintColor: "black",
-        headerBackTitle: "Back",
+        headerShown: false,
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >

@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import NavBar from "../../components/NavBar";
 import { colors, text } from "../../utils/colors";
+import SearchBar from "../../components/SearchBar";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Home = ({ navigation }) => {
   return (
@@ -12,6 +14,12 @@ const Home = ({ navigation }) => {
             <Text style={styles.text2}>Đa dịch vụ</Text>
           </View>
           <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
+        </View>
+
+        <View style={styles.body}>
+          <View style={styles.searchBar}>
+            <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" />
+          </View>
         </View>
       </View>
       <NavBar navigation={navigation} activeIndex={0} />
@@ -60,6 +68,15 @@ const styles = StyleSheet.create({
     flex: 0.8,
     resizeMode: "contain",
     alignSelf: "center",
+  },
+  body: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+  },
+  searchBar: {
+    position: "relative",
+    top: -20,
   },
 });
 

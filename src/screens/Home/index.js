@@ -5,6 +5,7 @@ import SearchBar from "../../components/SearchBar";
 import { faMagnifyingGlass, faMotorcycle, faCarSide } from "@fortawesome/free-solid-svg-icons";
 import BookingBtn from "../../components/Button/BookingBtn";
 import QuickBookingBtn from "../../components/Button/QuickBookingBtn";
+import ImageCarousel from "../../components/ImageCarousel";
 
 const Home = ({ navigation }) => {
   return (
@@ -30,6 +31,10 @@ const Home = ({ navigation }) => {
             </View>
             <QuickBookingBtn des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM" icon={faMotorcycle} />
           </View>
+
+          <View style={styles.carousel}>
+            <ImageCarousel />
+          </View>
         </View>
       </View>
       <NavBar navigation={navigation} activeIndex={0} />
@@ -51,7 +56,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.primary_200,
-    height: 150,
+    height: 175,
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -92,9 +97,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+    marginBottom: 20,
   },
   bookingBtnContainer: {
     width: "90%",
+  },
+  carousel: {
+    width: "100%",
+    marginTop: 30,
   },
 });
 

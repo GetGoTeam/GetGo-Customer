@@ -15,7 +15,7 @@ function truncateString(str, maxLength) {
 
 export default function QuickBookingBtn(props) {
   const { des, icon } = props;
-  const maxLength = 30;
+  const maxLength = 25;
 
   return (
     <View style={styles.container}>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: colors.primary_200,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 20,
     borderRadius: 10,
     marginVertical: 10,
   },
@@ -49,12 +49,13 @@ const styles = StyleSheet.create({
     color: "rgba(0, 0, 0, 0.8)",
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "600",
     color: text.color_600,
+    marginBottom: 3,
   },
   des: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: text.color_800,
   },

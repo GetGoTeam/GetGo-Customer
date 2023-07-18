@@ -1,14 +1,12 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import NavBar from "../../components/NavBar";
 import { colors, text } from "../../utils/colors";
 
-const Account = ({ navigation }) => {
+const Account = () => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text>Tài khoản</Text>
       </View>
-      <NavBar navigation={navigation} activeIndex={3} />
     </View>
   );
 };

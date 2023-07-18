@@ -1,14 +1,12 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import NavBar from "../../components/NavBar";
 import { colors, text } from "../../utils/colors";
 
-const Activities = ({ navigation }) => {
+const Activities = () => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text>Hoạt động</Text>
       </View>
-      <NavBar navigation={navigation} activeIndex={1} />
     </View>
   );
 };

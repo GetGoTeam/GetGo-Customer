@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View, Button, Image } from "react-native";
-import NavBar from "../../components/NavBar";
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import { colors, text } from "../../utils/colors";
 import SearchBar from "../../components/SearchBar";
 import { faMagnifyingGlass, faMotorcycle, faCarSide } from "@fortawesome/free-solid-svg-icons";
@@ -7,37 +6,38 @@ import BookingBtn from "../../components/Button/BookingBtn";
 import QuickBookingBtn from "../../components/Button/QuickBookingBtn";
 import ImageCarousel from "../../components/ImageCarousel";
 
-const Home = ({ navigation }) => {
+const Home = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.text1}>Ứng dụng</Text>
-            <Text style={styles.text2}>Đa dịch vụ</Text>
-          </View>
-          <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
-        </View>
-
-        <View style={styles.body}>
-          <View style={styles.searchBar}>
-            <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" />
-          </View>
-
-          <View style={styles.bookingBtnContainer}>
-            <View style={styles.bookingBtn}>
-              <BookingBtn title="Xe máy" icon={faMotorcycle} />
-              <BookingBtn title="Xe hơi" icon={faCarSide} />
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.text1}>Ứng dụng</Text>
+              <Text style={styles.text2}>Đa dịch vụ</Text>
             </View>
-            <QuickBookingBtn des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM" icon={faMotorcycle} />
+            <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
           </View>
 
-          <View style={styles.carousel}>
-            <ImageCarousel />
+          <View style={styles.body}>
+            <View style={styles.searchBar}>
+              <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" />
+            </View>
+
+            <View style={styles.bookingBtnContainer}>
+              <View style={styles.bookingBtn}>
+                <BookingBtn title="Xe máy" icon={faMotorcycle} />
+                <BookingBtn title="Xe hơi" icon={faCarSide} />
+              </View>
+              <QuickBookingBtn des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM" icon={faMotorcycle} />
+            </View>
+
+            <View style={styles.carousel}>
+              <ImageCarousel />
+            </View>
           </View>
         </View>
-      </View>
-      <NavBar navigation={navigation} activeIndex={0} />
+      </ScrollView>
     </View>
   );
 };
@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary_50,
     alignItems: "center",
     justifyContent: "center",
+  },
+  scrollView: {
+    width: "100%",
   },
   content: {
     flex: 1,

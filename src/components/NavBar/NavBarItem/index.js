@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { colors, text } from "./../../../utils/colors";
-
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 export default function NavBarItem(props) {

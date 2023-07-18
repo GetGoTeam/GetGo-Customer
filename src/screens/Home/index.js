@@ -2,7 +2,9 @@ import { StyleSheet, Text, View, Button, Image } from "react-native";
 import NavBar from "../../components/NavBar";
 import { colors, text } from "../../utils/colors";
 import SearchBar from "../../components/SearchBar";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faMotorcycle, faCarSide } from "@fortawesome/free-solid-svg-icons";
+import BookingBtn from "../../components/Button/BookingBtn";
+import QuickBookingBtn from "../../components/Button/QuickBookingBtn";
 
 const Home = ({ navigation }) => {
   return (
@@ -19,6 +21,14 @@ const Home = ({ navigation }) => {
         <View style={styles.body}>
           <View style={styles.searchBar}>
             <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" />
+          </View>
+
+          <View style={styles.bookingBtnContainer}>
+            <View style={styles.bookingBtn}>
+              <BookingBtn title="Xe máy" icon={faMotorcycle} />
+              <BookingBtn title="Xe hơi" icon={faCarSide} />
+            </View>
+            <QuickBookingBtn des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM" icon={faMotorcycle} />
           </View>
         </View>
       </View>
@@ -37,12 +47,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: "center",
-    height: "100%",
     width: "100%",
   },
   header: {
     backgroundColor: colors.primary_200,
-    height: "25%",
+    height: 150,
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -77,6 +86,15 @@ const styles = StyleSheet.create({
   searchBar: {
     position: "relative",
     top: -20,
+  },
+  bookingBtn: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  bookingBtnContainer: {
+    width: "90%",
   },
 });
 

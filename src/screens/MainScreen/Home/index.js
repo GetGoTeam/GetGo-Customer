@@ -1,12 +1,15 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
-import { colors, text } from "../../utils/colors";
-import SearchBar from "../../components/SearchBar";
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { colors, text } from "../../../utils/colors";
+import SearchBar from "../../../components/SearchBar";
 import { faMagnifyingGlass, faMotorcycle, faCarSide } from "@fortawesome/free-solid-svg-icons";
-import BookingBtn from "../../components/Button/BookingBtn";
-import QuickBookingBtn from "../../components/Button/QuickBookingBtn";
-import ImageCarousel from "../../components/ImageCarousel";
+import BookingBtn from "../../../components/Button/BookingBtn";
+import QuickBookingBtn from "../../../components/Button/QuickBookingBtn";
+import ImageCarousel from "../../../components/ImageCarousel";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -16,7 +19,7 @@ const Home = () => {
               <Text style={styles.text1}>Ứng dụng</Text>
               <Text style={styles.text2}>Đa dịch vụ</Text>
             </View>
-            <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
+            <Image style={styles.headerImage} source={require("../../../../assets/header.png")} />
           </View>
 
           <View style={styles.body}>
@@ -26,7 +29,9 @@ const Home = () => {
 
             <View style={styles.bookingBtnContainer}>
               <View style={styles.bookingBtn}>
-                <BookingBtn title="Xe máy" icon={faMotorcycle} />
+                <TouchableOpacity onPress={() => navigation.navigate("ChoosePickUpLocation")}>
+                  <BookingBtn title="Xe máy" icon={faMotorcycle} />
+                </TouchableOpacity>
                 <BookingBtn title="Xe hơi" icon={faCarSide} />
               </View>
               <QuickBookingBtn des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM" icon={faMotorcycle} />

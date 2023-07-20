@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, useWindowDimensions, Keyboard } from "react-nat
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBell, faHouse, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
-import Home from "../../screens/Home";
-import Activities from "../../screens/Activities";
-import Notifications from "../../screens/Notifications";
-import Account from "../../screens/Account";
+import Home from "../../screens/MainScreen/Home";
+import Activities from "../../screens/MainScreen/Activities";
+import Notifications from "../../screens/MainScreen/Notifications";
+import Account from "../../screens/MainScreen/Account";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { colors, text } from "../../utils/colors";
 

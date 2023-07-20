@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import { colors, text } from "../../utils/colors";
+import { colors, text } from "../../../utils/colors";
 
 const Activities = () => {
   return (

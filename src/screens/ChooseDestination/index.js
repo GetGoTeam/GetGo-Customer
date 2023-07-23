@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
 import GoogleApiSearch from "@components/GoogleApiSearch";
 
-const ChoosePickUpLocation = () => {
+const ChooseDestination = () => {
   const navigation = useNavigation();
 
   return (
@@ -34,4 +34,4 @@ const ChoosePickUpLocation = () => {
   );
 };
 
-export default ChoosePickUpLocation;
+export default ChooseDestination;

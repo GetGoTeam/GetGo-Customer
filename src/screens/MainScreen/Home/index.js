@@ -27,7 +27,7 @@ const Home = () => {
               <TouchableOpacity
                 style={{ width: "100%" }}
                 activeOpacity={1}
-                onPress={() => navigation.navigate("ChoosePickUpLocation")}
+                onPress={() => navigation.navigate("ChooseDestination")}
               >
                 <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" editable={false} />
               </TouchableOpacity>
@@ -35,7 +35,7 @@ const Home = () => {
 
             <View style={styles.bookingBtnContainer}>
               <View style={styles.bookingBtn}>
-                <TouchableOpacity onPress={() => navigation.navigate("ChoosePickUpLocation")}>
+                <TouchableOpacity onPress={() => navigation.navigate("ChooseDestination")}>
                   <BookingBtn title="Xe máy" icon={faMotorcycle} />
                 </TouchableOpacity>
                 <BookingBtn title="Xe hơi" icon={faCarSide} />

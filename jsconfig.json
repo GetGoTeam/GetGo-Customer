@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       "@": ["./"],
@@ -12,5 +10,4 @@
       "@screens": ["./src/screens"],
     }
   },
-  "extends": "expo/tsconfig.base"
 }

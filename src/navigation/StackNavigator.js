@@ -1,9 +1,8 @@
 import React from "react";
 import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
-import { colors } from "../utils/colors";
 
-import ChoosePickUpLocation from "../screens/ChoosePickUpLocation";
-import MainScreen from "../screens/MainScreen";
+import ChoosePickUpLocation from "@screens/ChoosePickUpLocation";
+import MainScreen from "@screens/MainScreen";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {

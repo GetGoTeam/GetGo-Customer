@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { colors, text } from "../../utils/colors";
+import { colors, text } from "@utils/colors.js";
 import { faAngleLeft, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
-import GoogleApiSearch from "../../components/GoogleApiSearch";
+import GoogleApiSearch from "@components/GoogleApiSearch";
 
 const ChoosePickUpLocation = () => {
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ const ChoosePickUpLocation = () => {
             <Text style={styles.text1}>Đặt xe</Text>
             <Text style={styles.text2}>Chọn điểm đến</Text>
           </View>
-          <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
+          <Image style={styles.headerImage} source={require("@assets/header.png")} />
         </View>
 
         <View style={styles.body}>

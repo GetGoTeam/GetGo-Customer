@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { colors, text } from "../../../utils/colors";
+import { colors, text } from "@utils/colors.js";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 export default function BookingBtn(props) {

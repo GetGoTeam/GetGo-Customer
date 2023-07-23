@@ -24,7 +24,13 @@ const Home = () => {
 
           <View style={styles.body}>
             <View style={styles.searchBar}>
-              <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" />
+              <TouchableOpacity
+                style={{ width: "100%" }}
+                activeOpacity={1}
+                onPress={() => navigation.navigate("ChoosePickUpLocation")}
+              >
+                <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" editable={false} />
+              </TouchableOpacity>
             </View>
 
             <View style={styles.bookingBtnContainer}>

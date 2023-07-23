@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, TextInput } from "react-native";
 import { colors } from "../../utils/colors";
 
 const SearchBar = (props) => {
-  const { hint, icon } = props;
+  const { hint, icon, editable } = props;
 
   return (
     <View style={[styles.container, styles.shadow]}>
       <FontAwesomeIcon icon={icon} size={20} color={colors.primary_300} />
-      <TextInput editable maxLength={35} style={styles.textInput} placeholder={hint} />
+      <TextInput editable={editable} maxLength={35} style={styles.textInput} placeholder={hint} />
     </View>
   );
 };
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   textInput: {
     padding: 10,
     width: "100%",
+    fontSize: 16,
   },
 });
 

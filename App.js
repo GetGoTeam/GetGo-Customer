@@ -1,11 +1,19 @@
+import { StyleSheet, SafeAreaView } from "react-native";
 import { MainStackNavigator } from "./src/navigation/StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
-import CustomTabView from "./src/components/CustomTabView";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MainStackNavigator />
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        <MainStackNavigator />
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

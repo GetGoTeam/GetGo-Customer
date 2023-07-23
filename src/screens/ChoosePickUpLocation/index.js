@@ -1,37 +1,36 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { colors, text } from "../../utils/colors";
-import SearchBar from "../../components/SearchBar";
-import { faAngleLeft, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
+import GoogleApiSearch from "../../components/GoogleApiSearch";
 
 const ChoosePickUpLocation = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.content}>
-          <View style={styles.header}>
-            <View style={styles.backBtn}>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.titleContainer}>
-              <Text style={styles.text1}>Đặt xe</Text>
-              <Text style={styles.text2}>Chọn điểm đến</Text>
-            </View>
-            <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
+      <View style={styles.content}>
+        <View style={styles.header}>
+          <View style={styles.backBtn}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
+            </TouchableOpacity>
           </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.text1}>Đặt xe</Text>
+            <Text style={styles.text2}>Chọn điểm đến</Text>
+          </View>
+          <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
+        </View>
 
-          <View style={styles.body}>
-            <View style={styles.searchBar}>
-              <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" />
-            </View>
+        <View style={styles.body}>
+          <View style={styles.searchBar}>
+            <GoogleApiSearch hint="Đến đâu?" icon={faLocationDot} />
           </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -43,8 +42,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  scrollView: {
+  GooglePlacesAutocomplete: {
     width: "100%",
+    height: "100%",
   },
   content: {
     flex: 1,
@@ -94,6 +94,8 @@ const styles = StyleSheet.create({
   searchBar: {
     position: "relative",
     top: -20,
+    width: "95%",
+    height: "100%",
   },
   bookingBtn: {
     display: "flex",

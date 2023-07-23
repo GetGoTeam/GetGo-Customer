@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, useWindowDimensions, Keyboard } from "react-native";
+import { Text, View, useWindowDimensions, Keyboard } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBell, faHouse, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
@@ -9,6 +9,7 @@ import Notifications from "@screens/MainScreen/Notifications";
 import Account from "@screens/MainScreen/Account";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { colors, text } from "@utils/colors.js";
+import styles from "./styles";
 
 const HomeRoute = () => <Home />;
 const ActivitiesRoute = () => <Activities />;
@@ -101,15 +102,5 @@ const CustomTabView = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabBar: {
-    borderTopWidth: 0.5,
-    borderTopColor: text.color_200,
-  },
-});
 
 export default CustomTabView;

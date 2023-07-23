@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Button } from "react-native";
-import { colors, text } from "@utils/colors.js";
+import { Text, View } from "react-native";
+import styles from "./styles";
 
 const Activities = () => {
   return (
@@ -10,19 +10,5 @@ const Activities = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.primary_50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  content: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default Activities;

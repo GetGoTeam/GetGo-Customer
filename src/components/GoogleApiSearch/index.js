@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import styles from "./styles";
 import { colors, text } from "@utils/colors.js";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
@@ -37,23 +38,5 @@ const GoogleApiSearch = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    width: "100%",
-    height: "auto",
-    elevation: 8,
-  },
-  icon: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default GoogleApiSearch;

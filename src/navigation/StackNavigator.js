@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
-
 import ChoosePickUpLocation from "@screens/ChoosePickUpLocation";
 import MainScreen from "@screens/MainScreen";
 

@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
+import styles from "./styles";
 
 const ImageCarousel = () => {
   const data = [
@@ -17,20 +18,5 @@ const ImageCarousel = () => {
 
   return <Carousel layout={"default"} data={data} renderItem={renderItem} sliderWidth={400} itemWidth={300} />;
 };
-
-const styles = StyleSheet.create({
-  slide: {
-    width: "100%",
-    height: 200,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    borderRadius: 20,
-  },
-});
 
 export default ImageCarousel;

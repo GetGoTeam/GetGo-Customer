@@ -3,7 +3,7 @@ import styles from "./styles";
 import { faAngleLeft, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
-import GoogleApiSearch from "@components/GoogleApiSearch";
+import GoogleApiSearch from "~components/GoogleApiSearch";
 
 const ChooseDestination = () => {
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ const ChooseDestination = () => {
             <Text style={styles.text1}>Đặt xe</Text>
             <Text style={styles.text2}>Chọn điểm đến</Text>
           </View>
-          <Image style={styles.headerImage} source={require("@assets/header.png")} />
+          <Image style={styles.headerImage} source={require("~assets/header.png")} />
         </View>
 
         <View style={styles.body}>

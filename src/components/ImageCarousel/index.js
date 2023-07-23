@@ -5,9 +5,9 @@ import styles from "./styles";
 
 const ImageCarousel = () => {
   const data = [
-    { id: 1, image: require("@assets/carousel1.jpg") },
-    { id: 2, image: require("@assets/carousel2.jpg") },
-    { id: 3, image: require("@assets/carousel3.jpg") },
+    { id: 1, image: require("~assets/carousel1.jpg") },
+    { id: 2, image: require("~assets/carousel2.jpg") },
+    { id: 3, image: require("~assets/carousel3.jpg") },
   ];
 
   const renderItem = ({ item }) => (

@@ -3,12 +3,12 @@ import { Text, View, useWindowDimensions, Keyboard } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBell, faHouse, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
-import Home from "@screens/MainScreen/Home";
-import Activities from "@screens/MainScreen/Activities";
-import Notifications from "@screens/MainScreen/Notifications";
-import Account from "@screens/MainScreen/Account";
+import Home from "~screens/MainScreen/Home";
+import Activities from "~screens/MainScreen/Activities";
+import Notifications from "~screens/MainScreen/Notifications";
+import Account from "~screens/MainScreen/Account";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { colors, text } from "@utils/colors.js";
+import { colors, text } from "~utils/colors.js";
 import styles from "./styles";
 
 const HomeRoute = () => <Home />;

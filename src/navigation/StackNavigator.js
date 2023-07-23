@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
-import ChooseDestination from "@screens/ChooseDestination";
-import MainScreen from "@screens/MainScreen";
+import ChooseDestination from "~screens/ChooseDestination";
+import MainScreen from "~screens/MainScreen";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {

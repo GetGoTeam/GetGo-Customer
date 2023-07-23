@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { View, TextInput } from "react-native";
 import styles from "./styles";
-import { colors, text } from "@utils/colors.js";
+import { colors, text } from "~utils/colors.js";
 
 const SearchBar = (props) => {
   const { hint, icon, editable } = props;

@@ -1,17 +1,26 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { colors, text } from "../../utils/colors";
 import SearchBar from "../../components/SearchBar";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
 
 const ChoosePickUpLocation = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.content}>
           <View style={styles.header}>
+            <View style={styles.backBtn}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
+              </TouchableOpacity>
+            </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.text1}>Ứng dụng</Text>
-              <Text style={styles.text2}>Đa dịch vụ</Text>
+              <Text style={styles.text1}>Đặt xe</Text>
+              <Text style={styles.text2}>Chọn điểm đến</Text>
             </View>
             <Image style={styles.headerImage} source={require("../../../assets/header.png")} />
           </View>
@@ -52,19 +61,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
   },
+  backBtn: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+  },
   titleContainer: {
     display: "flex",
     flexDirection: "column",
+    marginTop: 40,
   },
   text1: {
-    fontSize: 20,
-    fontWeight: 500,
+    fontSize: 30,
+    fontWeight: "bold",
     color: "rgba(0, 0, 0, 0.8)",
   },
   text2: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "rgba(0, 0, 0, 0.8)",
+    fontSize: 16,
+    fontWeight: 500,
+    color: "rgba(0, 0, 0, 0.6)",
   },
   headerImage: {
     flex: 0.8,

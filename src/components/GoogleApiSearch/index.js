@@ -1,4 +1,3 @@
-import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../../utils/colors";
@@ -26,6 +25,7 @@ const GoogleApiSearch = (props) => {
         query={{
           key: GOOGLE_MAPS_APIKEY,
           language: "vi",
+          components: "country:VN",
         }}
         styles={{
           textInput: {
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
     width: "100%",
+    height: "auto",
     elevation: 8,
   },
   icon: {

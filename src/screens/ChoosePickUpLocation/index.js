@@ -1,4 +1,3 @@
-import React, { useRef, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { colors, text } from "../../utils/colors";
 import { faAngleLeft, faLocationDot } from "@fortawesome/free-solid-svg-icons";

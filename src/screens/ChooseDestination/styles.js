@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     height: "60%",
   },
   confirmBtn: {
-    // marginTop: 50,
+    width: "90%",
   },
 });
 

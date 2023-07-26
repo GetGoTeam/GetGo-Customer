@@ -30,9 +30,11 @@ const ChooseDestination = () => {
             <GoogleApiSearch hint="Đến đâu?" icon={faLocationDot} />
           </View>
           <View style={styles.recommendation}></View>
-          <TouchableOpacity onPress={() => navigation.navigate("ChooseOrigin")}>
-            <CustomBtn style={styles.confirmBtn} title="Chọn điểm đến" />
-          </TouchableOpacity>
+          <View style={styles.confirmBtn}>
+            <TouchableOpacity onPress={() => navigation.navigate("ChooseOrigin")}>
+              <CustomBtn title="Chọn điểm đến" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

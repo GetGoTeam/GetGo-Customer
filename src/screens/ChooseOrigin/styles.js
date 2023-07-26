@@ -6,14 +6,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary_50,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
-  content: {
-    // flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
+  map: {
     width: "100%",
-    height: "50%",
+    height: "70%",
+  },
+  backBtn: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    backgroundColor: "white",
+    borderRadius: 100,
+    padding: 5,
+    elevation: 10,
   },
 });
 

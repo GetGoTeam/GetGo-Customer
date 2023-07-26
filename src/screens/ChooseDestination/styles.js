@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchBar: {
-    position: "relative",
+    position: "absolute",
     top: -20,
     width: "95%",
     height: "100%",
@@ -76,6 +76,13 @@ const styles = StyleSheet.create({
   carousel: {
     width: "100%",
     marginTop: 30,
+  },
+  recommendation: {
+    marginTop: 30,
+    height: "60%",
+  },
+  confirmBtn: {
+    // marginTop: 50,
   },
 });
 

@@ -4,9 +4,15 @@ import styles from "./styles";
 import { colors, text } from "~utils/colors.js";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import { useNavigation } from "@react-navigation/native";
 
 const GoogleApiSearch = (props) => {
   const { hint, icon } = props;
+  const navigation = useNavigation();
+
+  const handlePlaceSelect = (data, details = null) => {
+    navigation.navigate("ChooseOrigin");
+  };
 
   return (
     <View style={[styles.container]}>
@@ -23,6 +29,7 @@ const GoogleApiSearch = (props) => {
         textInputProps={{
           autoFocus: true,
         }}
+        onPress={handlePlaceSelect}
         query={{
           key: GOOGLE_MAPS_APIKEY,
           language: "vi",

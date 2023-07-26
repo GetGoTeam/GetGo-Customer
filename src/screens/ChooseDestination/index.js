@@ -4,6 +4,7 @@ import { faAngleLeft, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
 import GoogleApiSearch from "~components/GoogleApiSearch";
+import CustomBtn from "~components/Button/CustomBtn";
 
 const ChooseDestination = () => {
   const navigation = useNavigation();
@@ -28,6 +29,10 @@ const ChooseDestination = () => {
           <View style={styles.searchBar}>
             <GoogleApiSearch hint="Đến đâu?" icon={faLocationDot} />
           </View>
+          <View style={styles.recommendation}></View>
+          <TouchableOpacity onPress={() => navigation.navigate("ChooseOrigin")}>
+            <CustomBtn style={styles.confirmBtn} title="Chọn điểm đến" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

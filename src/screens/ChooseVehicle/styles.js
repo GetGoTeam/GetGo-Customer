@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "100%",
-    height: "70%",
+    height: "50%",
   },
   backBtn: {
     position: "absolute",
@@ -30,15 +30,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
   },
-  locationContainer: {
+  chooseVehicleContainer: {
     display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: colors.primary_100,
-    padding: 20,
-    borderRadius: 5,
-    marginBottom: 30,
-    width: "90%",
+    flexDirection: "column",
+    width: "100%",
   },
   icon: {
     width: 30,
@@ -56,6 +51,22 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     width: "90%",
+  },
+  titleContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "center",
+  },
+  title: {
+    marginLeft: 20,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: text.color_700,
+  },
+  price: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: text.color_700,
   },
 });
 

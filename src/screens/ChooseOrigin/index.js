@@ -1,10 +1,11 @@
-import { TouchableOpacity, View, Image, Text } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import CustomBtn from "~components/Button/CustomBtn";
+import { colors, text } from "~utils/colors.js";
 
 const ChooseOrigin = () => {
   const navigation = useNavigation();
@@ -21,7 +22,9 @@ const ChooseOrigin = () => {
       </View>
       <View style={styles.content}>
         <View style={styles.locationContainer}>
-          <Image source={require("~assets/location.png")} style={styles.icon} />
+          <View style={styles.icon}>
+            <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
+          </View>
           <View>
             <Text style={styles.text1}>103 Trần Đình Xu</Text>
             <Text style={styles.text2}>103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM</Text>

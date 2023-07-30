@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   content: {
-    // flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     width: "100%",
     height: "50%",
   },

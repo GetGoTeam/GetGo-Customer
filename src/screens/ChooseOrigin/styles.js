@@ -41,9 +41,11 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   icon: {
-    width: 30,
-    height: 30,
     marginRight: 10,
+    backgroundColor: "white",
+    borderRadius: 100,
+    borderColor: "white",
+    borderWidth: 2,
   },
   text1: {
     fontSize: 16,
@@ -56,6 +58,7 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     width: "90%",
+    marginBottom: 5,
   },
 });
 

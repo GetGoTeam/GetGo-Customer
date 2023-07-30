@@ -41,24 +41,30 @@ const ChooseVehicle = () => {
           <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
         </TouchableOpacity>
       </View>
-      <View style={styles.content}>
-        <View style={styles.chooseVehicleContainer}>
-          {chooseVehicleData.map((item, index) => (
-            <TouchableOpacity onPress={() => setChooseIndex(index)} activeOpacity={0.8}>
-              <ChooseVehicleItem
-                key={index}
-                title={item.title}
-                icon={item.icon}
-                price={item.price}
-                active={chooseIndex === index ? true : false}
-              />
-            </TouchableOpacity>
-          ))}
+      <View style={styles.contentContainer}>
+        <View style={styles.pullBarContainer}>
+          <View style={styles.pullBar} />
         </View>
-        <View style={styles.confirmBtn}>
-          <TouchableOpacity>
-            <CustomBtn title="Đặt xe" />
-          </TouchableOpacity>
+
+        <View style={styles.content}>
+          <View style={styles.chooseVehicleContainer}>
+            {chooseVehicleData.map((item, index) => (
+              <TouchableOpacity onPress={() => setChooseIndex(index)} activeOpacity={0.8} key={index}>
+                <ChooseVehicleItem
+                  key={index}
+                  title={item.title}
+                  icon={item.icon}
+                  price={item.price}
+                  active={chooseIndex === index ? true : false}
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+          <View style={styles.confirmBtn}>
+            <TouchableOpacity>
+              <CustomBtn title="Đặt xe" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

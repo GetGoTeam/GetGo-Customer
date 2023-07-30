@@ -22,10 +22,21 @@ const styles = StyleSheet.create({
     padding: 5,
     elevation: 10,
   },
+  contentContainer: {
+    width: "100%",
+    display: "flex",
+    flex: 1,
+    borderTopWidth: 5,
+    borderColor: "rgba(0, 0, 0, 0.05)",
+    backgroundColor: "transparent",
+    borderRadius: 20,
+    position: "relative",
+    bottom: 5,
+  },
   content: {
     display: "flex",
     justifyContent: "space-between",
-    marginVertical: 30,
+    paddingBottom: 30,
     alignItems: "center",
     flex: 1,
     width: "100%",
@@ -35,38 +46,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
-  icon: {
-    width: 30,
-    height: 30,
-    marginRight: 10,
-  },
-  text1: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: text.color_900,
-  },
-  text2: {
-    fontSize: 12,
-    color: text.color_600,
-  },
   confirmBtn: {
     width: "90%",
   },
-  titleContainer: {
+  pullBarContainer: {
     display: "flex",
-    flexDirection: "row",
-    alignContent: "center",
+    width: "100%",
+    marginVertical: 15,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  title: {
-    marginLeft: 20,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: text.color_700,
-  },
-  price: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: text.color_700,
+  pullBar: {
+    width: "12%",
+    height: 3,
+    backgroundColor: text.color_300,
   },
 });
 

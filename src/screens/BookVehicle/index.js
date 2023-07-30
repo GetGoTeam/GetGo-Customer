@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -42,8 +42,10 @@ const BookVehicle = () => {
           <View style={styles.confirmBtn}>
             <TouchableOpacity
               onPress={() => {
-                setConfirmBtnTitle("Đặt xe");
-                setContent(1);
+                if (content === 0) {
+                  setConfirmBtnTitle("Đặt xe");
+                  setContent(1);
+                }
               }}
             >
               <CustomBtn title={confirmBtnTitle} />

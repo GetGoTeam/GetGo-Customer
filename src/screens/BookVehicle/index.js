@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -6,9 +6,13 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import ChooseVehicle from "./ChooseVehicle";
 import ChooseeMethod from "./ChooseMethod";
+import CustomBtn from "~components/Button/CustomBtn";
+import { useState } from "react";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
+  const [confirmBtnTitle, setConfirmBtnTitle] = useState("Tiếp tục");
+  const [content, setContent] = useState(0);
 
   return (
     <View style={styles.container}>
@@ -16,7 +20,15 @@ const BookVehicle = () => {
         <GoogleMap />
       </View>
       <View style={styles.backBtn}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => {
+            if (content === 0) navigation.goBack();
+            else {
+              setContent(0);
+              setConfirmBtnTitle("Tiếp tục");
+            }
+          }}
+        >
           <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
         </TouchableOpacity>
       </View>
@@ -25,8 +37,18 @@ const BookVehicle = () => {
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {/* <ChooseVehicle /> */}
-          <ChooseeMethod />
+          {content === 0 ? <ChooseVehicle /> : <ChooseeMethod setConfirmBtnTitle={setConfirmBtnTitle} />}
+
+          <View style={styles.confirmBtn}>
+            <TouchableOpacity
+              onPress={() => {
+                setConfirmBtnTitle("Đặt xe");
+                setContent(1);
+              }}
+            >
+              <CustomBtn title={confirmBtnTitle} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

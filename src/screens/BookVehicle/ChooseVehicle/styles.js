@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     justifyContent: "space-between",
-    paddingBottom: 30,
     alignItems: "center",
     flex: 1,
     width: "100%",
@@ -14,9 +13,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-  },
-  confirmBtn: {
-    width: "90%",
   },
   pullBarContainer: {
     display: "flex",

@@ -33,11 +33,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
-  confirmBtn: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-  },
 });
 
 export default styles;

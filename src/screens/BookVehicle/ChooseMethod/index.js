@@ -4,7 +4,6 @@ import { colors, text } from "~utils/colors.js";
 import styles from "./styles";
 import BookNow from "./BookNow";
 import Schedule from "./Schedule";
-import CustomBtn from "~components/Button/CustomBtn";
 
 const { width } = Dimensions.get("window");
 
@@ -56,6 +55,7 @@ export default class ChooseeMethod extends React.Component {
   };
 
   render() {
+    const { setConfirmBtnTitle } = this.props;
     let { xTabOne, xTabTwo, translateX, active, translateXTabOne, translateXTabTwo, translateY } = this.state;
     return (
       <View style={styles.container}>
@@ -68,7 +68,10 @@ export default class ChooseeMethod extends React.Component {
                 xTabOne: event.nativeEvent.layout.x,
               })
             }
-            onPress={() => this.setState({ active: 0 }, () => this.handleSlide(xTabOne))}
+            onPress={() => {
+              this.setState({ active: 0 }, () => this.handleSlide(xTabOne));
+              setConfirmBtnTitle("Đặt xe");
+            }}
           >
             <Text style={[{ color: active === 0 ? colors.primary_300 : text.color_400 }, styles.title]}>Đặt ngay</Text>
           </TouchableOpacity>
@@ -79,7 +82,10 @@ export default class ChooseeMethod extends React.Component {
                 xTabTwo: event.nativeEvent.layout.x,
               })
             }
-            onPress={() => this.setState({ active: 1 }, () => this.handleSlide(xTabTwo))}
+            onPress={() => {
+              this.setState({ active: 1 }, () => this.handleSlide(xTabTwo));
+              setConfirmBtnTitle("Lên lịch");
+            }}
           >
             <Text style={[{ color: active === 1 ? colors.primary_300 : text.color_400 }, styles.title]}>Hẹn giờ</Text>
           </TouchableOpacity>
@@ -117,11 +123,6 @@ export default class ChooseeMethod extends React.Component {
           >
             <Schedule />
           </Animated.View>
-        </View>
-        <View style={styles.confirmBtn}>
-          <TouchableOpacity>
-            <CustomBtn title={active === 0 ? "Đặt xe" : "Lên lịch"} />
-          </TouchableOpacity>
         </View>
       </View>
     );

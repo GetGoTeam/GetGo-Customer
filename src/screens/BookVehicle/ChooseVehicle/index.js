@@ -1,7 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
 import styles from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import CustomBtn from "~components/Button/CustomBtn";
 import ChooseVehicleItem from "~components/ChooseVehicleItem";
 import { useState } from "react";
 
@@ -40,11 +38,6 @@ const ChooseVehicle = () => {
             />
           </TouchableOpacity>
         ))}
-      </View>
-      <View style={styles.confirmBtn}>
-        <TouchableOpacity>
-          <CustomBtn title="Đặt xe" />
-        </TouchableOpacity>
       </View>
     </View>
   );

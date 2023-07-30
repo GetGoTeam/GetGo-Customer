@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     width: "100%",
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
@@ -16,7 +17,8 @@ const styles = StyleSheet.create({
   titleContainer: {
     display: "flex",
     flexDirection: "row",
-    alignContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
   title: {
     marginLeft: 20,
@@ -28,6 +30,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: text.color_800,
+  },
+  icon: {
+    height: 50,
+    width: 50,
+    resizeMode: "contain",
   },
 });
 

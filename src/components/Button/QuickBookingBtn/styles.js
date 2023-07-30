@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   icon: {
-    marginRight: 10,
-    color: "rgba(0, 0, 0, 0.8)",
+    height: 50,
+    width: 50,
+    resizeMode: "contain",
   },
   title: {
     fontSize: 18,

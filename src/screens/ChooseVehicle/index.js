@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleLeft, faMotorcycle, faCarSide } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import CustomBtn from "~components/Button/CustomBtn";
 import ChooseVehicleItem from "~components/ChooseVehicleItem";
@@ -11,17 +11,17 @@ import { useState } from "react";
 const chooseVehicleData = [
   {
     title: "Xe máy",
-    icon: faMotorcycle,
+    icon: require("~assets/motorcycle.png"),
     price: 30000,
   },
   {
     title: "Xe hơi 4 chỗ",
-    icon: faCarSide,
+    icon: require("~assets/car.png"),
     price: 50000,
   },
   {
     title: "Xe hơi 7 chỗ",
-    icon: faCarSide,
+    icon: require("~assets/car.png"),
     price: 80000,
   },
 ];

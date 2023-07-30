@@ -1,5 +1,4 @@
-import { Text, View } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Text, View, Image } from "react-native";
 import styles from "./styles";
 
 function truncateString(str, maxLength) {
@@ -23,7 +22,7 @@ export default function QuickBookingBtn(props) {
         <Text style={styles.title}>Đặt xe đến</Text>
         <Text style={styles.des}>{truncateString(des, maxLength)}</Text>
       </View>
-      <FontAwesomeIcon icon={icon} style={styles.icon} size={35} />
+      <Image source={icon} style={styles.icon} />
     </View>
   );
 }

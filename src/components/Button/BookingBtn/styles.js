@@ -8,19 +8,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.primary_200,
-    paddingHorizontal: 15,
-    paddingVertical: 20,
+    padding: 15,
     borderRadius: 10,
     marginVertical: 10,
   },
   icon: {
-    marginRight: 20,
-    color: text.color_800,
+    height: 50,
+    width: 50,
+    resizeMode: "contain",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: text.color_800,
+    marginLeft: 10,
   },
 });
 

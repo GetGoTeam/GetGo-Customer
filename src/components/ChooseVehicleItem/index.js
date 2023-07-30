@@ -1,6 +1,5 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import styles from "./styles";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "~utils/colors.js";
 
 function numberWithCommas(x) {
@@ -16,7 +15,7 @@ const ChooseVehicleItem = (props) => {
   return (
     <View style={[styles.container, { backgroundColor: active ? colors.primary_100 : colors.primary_50 }]}>
       <View style={styles.titleContainer}>
-        <FontAwesomeIcon icon={icon} size={35} color={colors.primary_300} />
+        <Image source={icon} style={styles.icon} />
         <Text style={styles.title}>{title}</Text>
       </View>
       <Text style={styles.price}>{numberWithCommas(price)}₫</Text>

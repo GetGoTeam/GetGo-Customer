@@ -31,7 +31,7 @@ const ChooseOrigin = () => {
           </View>
         </View>
         <View style={styles.confirmBtn}>
-          <TouchableOpacity onPress={() => navigation.navigate("ChooseVehicle")}>
+          <TouchableOpacity onPress={() => navigation.navigate("BookVehicle")}>
             <CustomBtn title="Chọn điểm đón này" />
           </TouchableOpacity>
         </View>

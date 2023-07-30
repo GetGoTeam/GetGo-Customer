@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   pullBar: {
-    width: "12%",
+    width: 50,
     height: 3,
     backgroundColor: text.color_300,
   },

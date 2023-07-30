@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   content: {
     display: "flex",
     justifyContent: "space-between",
-    paddingBottom: 30,
+    marginBottom: 30,
     alignItems: "center",
     flex: 1,
     width: "100%",
@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     width: "90%",
+    position: "absolute",
+    bottom: 0,
   },
   pullBarContainer: {
     display: "flex",

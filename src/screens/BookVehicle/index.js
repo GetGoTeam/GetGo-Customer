@@ -24,9 +24,10 @@ const BookVehicle = () => {
         <View style={styles.pullBarContainer}>
           <View style={styles.pullBar} />
         </View>
-
-        {/* <ChooseVehicle /> */}
-        <ChooseeMethod />
+        <View style={styles.content}>
+          {/* <ChooseVehicle /> */}
+          <ChooseeMethod />
+        </View>
       </View>
     </View>
   );

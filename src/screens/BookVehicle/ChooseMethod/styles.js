@@ -4,6 +4,7 @@ import { colors, text } from "~utils/colors.js";
 const styles = StyleSheet.create({
   container: {
     width: "90%",
+    height: "100%",
     marginLeft: "auto",
     marginRight: "auto",
   },
@@ -31,6 +32,11 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 15,
+  },
+  confirmBtn: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
   },
 });
 

@@ -2,6 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity, Animated, ScrollView, Image, Dimensions } from "react-native";
 import { colors, text } from "~utils/colors.js";
 import styles from "./styles";
+import BookNow from "./BookNow";
+import Schedule from "./Schedule";
+import CustomBtn from "~components/Button/CustomBtn";
 
 const { width } = Dimensions.get("window");
 
@@ -82,7 +85,7 @@ export default class ChooseeMethod extends React.Component {
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
+        <View>
           <Animated.View
             style={{
               transform: [
@@ -97,7 +100,7 @@ export default class ChooseeMethod extends React.Component {
               })
             }
           >
-            <Text>Đặt ngay</Text>
+            <BookNow />
           </Animated.View>
 
           <Animated.View
@@ -112,9 +115,14 @@ export default class ChooseeMethod extends React.Component {
               ],
             }}
           >
-            <Text>Hẹn giờ</Text>
+            <Schedule />
           </Animated.View>
-        </ScrollView>
+        </View>
+        <View style={styles.confirmBtn}>
+          <TouchableOpacity>
+            <CustomBtn title={active === 0 ? "Đặt xe" : "Lên lịch"} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

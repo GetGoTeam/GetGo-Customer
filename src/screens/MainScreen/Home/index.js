@@ -29,7 +29,9 @@ const Home = () => {
                 activeOpacity={1}
                 onPress={() => navigation.navigate("ChooseDestination")}
               >
-                <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" editable={false} />
+                <View style={{ width: "90%" }}>
+                  <SearchBar icon={faMagnifyingGlass} hint="Nhập điểm đến" editable={false} shadow />
+                </View>
               </TouchableOpacity>
             </View>
 

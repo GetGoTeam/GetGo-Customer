@@ -3,7 +3,7 @@ import { createStackNavigator, TransitionPresets } from "@react-navigation/stack
 import ChooseDestination from "~screens/ChooseDestination";
 import MainScreen from "~screens/MainScreen";
 import ChooseOrigin from "~screens/ChooseOrigin";
-import BookVehicle from "~/src/screens/BookVehicle";
+import BookVehicle from "~screens/BookVehicle";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {

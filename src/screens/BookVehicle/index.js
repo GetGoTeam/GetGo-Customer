@@ -8,6 +8,7 @@ import ChooseVehicle from "./ChooseVehicle";
 import ChooseeMethod from "./ChooseMethod";
 import CustomBtn from "~components/Button/CustomBtn";
 import { useState } from "react";
+import DriverInfo from "./DriverInfo";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
@@ -37,7 +38,8 @@ const BookVehicle = () => {
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {content === 0 ? <ChooseVehicle /> : <ChooseeMethod setConfirmBtnTitle={setConfirmBtnTitle} />}
+          {/* {content === 0 ? <ChooseVehicle /> : <ChooseeMethod setConfirmBtnTitle={setConfirmBtnTitle} />} */}
+          <DriverInfo />
 
           <View style={styles.confirmBtn}>
             <TouchableOpacity

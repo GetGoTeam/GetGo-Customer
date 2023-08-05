@@ -37,7 +37,7 @@ const Home = () => {
 
             <View style={styles.bookingBtnContainer}>
               <View style={styles.bookingBtn}>
-                <TouchableOpacity onPress={() => navigation.navigate("ChooseDestination")}>
+                <TouchableOpacity onPress={() => navigation.navigate("ChooseDestination")} style={{ marginRight: 10 }}>
                   <BookingBtn title="Xe máy" icon={require("~assets/motorcycle.png")} />
                 </TouchableOpacity>
                 <BookingBtn title="Xe hơi" icon={require("~assets/car.png")} />

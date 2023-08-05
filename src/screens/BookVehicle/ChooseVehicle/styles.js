@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: text.color_300,
   },
+  divLine: {
+    width: "100%",
+    height: 1,
+    backgroundColor: text.color_300,
+  },
 });
 
 export default styles;

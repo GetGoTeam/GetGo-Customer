@@ -10,9 +10,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     width: "100%",
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    borderColor: text.color_500,
   },
   titleContainer: {
     display: "flex",

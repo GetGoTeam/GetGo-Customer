@@ -26,8 +26,10 @@ const ChooseOrigin = () => {
             <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
           </View>
           <View>
-            <Text style={styles.text1}>103 Trần Đình Xu</Text>
-            <Text style={styles.text2}>103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM</Text>
+            <View style={styles.textContainer}>
+              <Text style={styles.text1}>103 Trần Đình Xu</Text>
+              <Text style={styles.text2}>103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM</Text>
+            </View>
           </View>
         </View>
         <View style={styles.confirmBtn}>

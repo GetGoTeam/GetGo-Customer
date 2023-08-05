@@ -1,27 +1,28 @@
-import { StyleSheet } from "react-native";
 import { colors, text } from "~utils/colors.js";
+import EStyleSheet from "react-native-extended-stylesheet";
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.primary_200,
-    padding: 15,
-    borderRadius: 10,
-    marginVertical: 10,
+    paddingHorizontal: "0.75rem",
+    paddingVertical: "0.5rem",
+    borderRadius: "0.5rem",
+    marginVertical: "0.5rem",
   },
   icon: {
-    height: 50,
-    width: 50,
+    height: "3rem",
+    width: "3rem",
     resizeMode: "contain",
   },
   title: {
-    fontSize: 24,
+    fontSize: "1.5rem",
     fontWeight: "bold",
     color: text.color_800,
-    marginLeft: 10,
+    marginLeft: "0.5rem",
   },
 });
 

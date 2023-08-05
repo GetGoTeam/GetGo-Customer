@@ -29,6 +29,7 @@ const ChooseVehicle = () => {
       <View style={styles.chooseVehicleContainer}>
         {chooseVehicleData.map((item, index) => (
           <TouchableOpacity onPress={() => setChooseIndex(index)} activeOpacity={0.8} key={index}>
+            <View style={index === 0 ? styles.divLine : null} />
             <ChooseVehicleItem
               key={index}
               title={item.title}
@@ -36,6 +37,7 @@ const ChooseVehicle = () => {
               price={item.price}
               active={chooseIndex === index ? true : false}
             />
+            <View style={styles.divLine} />
           </TouchableOpacity>
         ))}
       </View>

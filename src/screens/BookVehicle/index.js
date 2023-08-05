@@ -33,13 +33,14 @@ const BookVehicle = () => {
           <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
         </TouchableOpacity>
       </View>
+
       <View style={styles.contentContainer}>
         <View style={styles.pullBarContainer}>
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {/* {content === 0 ? <ChooseVehicle /> : <ChooseeMethod setConfirmBtnTitle={setConfirmBtnTitle} />} */}
-          <DriverInfo />
+          {content === 0 ? <ChooseVehicle /> : <ChooseeMethod setConfirmBtnTitle={setConfirmBtnTitle} />}
+          {/* <DriverInfo /> */}
 
           <View style={styles.confirmBtn}>
             <TouchableOpacity

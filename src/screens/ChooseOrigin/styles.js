@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
 import { colors, text } from "~utils/colors.js";
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary_50,
@@ -35,25 +35,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.primary_100,
-    padding: 20,
+    padding: "1.2rem",
     borderRadius: 5,
     marginBottom: 30,
     width: "90%",
   },
   icon: {
-    marginRight: 10,
+    marginRight: "0.6rem",
     backgroundColor: "white",
     borderRadius: 100,
     borderColor: "white",
     borderWidth: 2,
   },
+  textContainer: {
+    flexDirection: "column",
+    display: "flex",
+    width: "100%",
+    paddingRight: "1.5rem",
+  },
   text1: {
-    fontSize: 16,
+    fontSize: "1rem",
     fontWeight: "bold",
     color: text.color_900,
   },
   text2: {
-    fontSize: 12,
+    fontSize: "0.75rem",
     color: text.color_600,
   },
   confirmBtn: {

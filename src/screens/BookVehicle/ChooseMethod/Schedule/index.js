@@ -1,16 +1,34 @@
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, Alert } from "react-native";
 import styles from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCircleDot, faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
 import { colors, text } from "~utils/colors.js";
-import { useState } from "react";
+import React, { useState } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { format, isPast } from "date-fns";
 
 const Schedule = () => {
-  const [time, setTime] = useState();
+  const [selectDatetime, setSelectedDatetime] = useState("");
   const maxLength = 50;
 
   const origin = "227 Nguyễn Văn Cừ";
   const destination = "300 An Dương Vương";
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (datetime) => {
+    if (isPast(datetime)) Alert.alert("Lỗi", "Thời gian đặt xe không hợp lệ!");
+    else setSelectedDatetime(format(datetime, "dd/MM/yyyy") + " lúc " + format(datetime, "HH:mm"));
+    hideDatePicker();
+  };
 
   return (
     <View style={styles.containter}>
@@ -27,14 +45,21 @@ const Schedule = () => {
         </View>
       </View>
       <View style={styles.divLine} />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={showDatePicker}>
         <View style={styles.datetimeContainer}>
           <View style={styles.datetimeIcon}>
             <FontAwesomeIcon icon={faClock} size={16} color={colors.primary_50} />
           </View>
-          <Text style={styles.text}>{time ? time : "Chọn thời gian đặt xe"}</Text>
+          <Text style={styles.text}>{selectDatetime ? selectDatetime : "Chọn thời gian đặt xe"}</Text>
         </View>
       </TouchableOpacity>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+        minimumDate={new Date()}
+      />
     </View>
   );
 };

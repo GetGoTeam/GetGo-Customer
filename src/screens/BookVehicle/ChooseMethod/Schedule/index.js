@@ -31,7 +31,7 @@ const Schedule = () => {
   };
 
   return (
-    <View style={styles.containter}>
+    <View style={styles.container}>
       <View style={styles.locationcontainer}>
         <View style={styles.iconContainer}>
           <FontAwesomeIcon icon={faCircleDot} size={26} color={colors.primary_300} />

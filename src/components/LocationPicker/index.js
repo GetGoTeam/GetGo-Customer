@@ -1,20 +1,25 @@
-import { View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { View, Text, Image } from "react-native";
+import styles from "./styles";
+import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
 import { selectOrigin } from "~/slices/navSlice";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PermissionsAndroid, Platform } from "react-native";
 import Geolocation from "react-native-geolocation-service";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
+import { colors } from "~utils/colors.js";
 
-const GoogleMap = () => {
+const LocationPicker = () => {
   const origin = useSelector(selectOrigin);
   const [region, setRegion] = useState(null);
+  const [locationPicked, setLocationPicked] = useState();
 
   const handleRegionChange = async (region) => {
     const address = await getPlaceFromCoordinates(region.latitude, region.longitude);
-    console.warn("address: ", address);
+    setLocationPicked(address);
   };
 
   const getPlaceFromCoordinates = async (latitude, longitude) => {
@@ -31,6 +36,19 @@ const GoogleMap = () => {
       console.error("Error getting place from coordinates:", error);
       return "Error";
     }
+  };
+
+  const getShortedAddress = (address) => {
+    if (!address) return "N/A";
+    const firstCommaIndex = address.indexOf(",");
+    return address.substring(0, firstCommaIndex);
+  };
+
+  const getDetailAddress = (address) => {
+    if (!address) return "N/A";
+    const firstCommaIndex = address.indexOf(",");
+    const lastCommaIndex = address.lastIndexOf(",");
+    return address.substring(firstCommaIndex + 2, lastCommaIndex);
   };
 
   const getCurrentLocation = () => {
@@ -84,31 +102,43 @@ const GoogleMap = () => {
   };
 
   return (
-    <MapView
-      style={{ flex: 1, zIndex: 0 }}
-      mapType="mutedStandard"
-      showsUserLocation
-      showsMyLocationButton
-      region={region}
-      onRegionChangeComplete={handleRegionChange}
-      initialRegion={{
-        latitude: 10.8231,
-        longitude: 106.6297,
-        latitudeDelta: 0.005,
-        longitudeDelta: 0.005,
-      }}
-    >
-      <Marker
-        coordinate={{
-          latitude: 10.8231,
-          longitude: 106.6297,
-        }}
-        title="Origin"
-        description="description"
-        identifier="origin"
-      />
-    </MapView>
+    <View style={styles.container}>
+      <View style={styles.map}>
+        <MapView
+          style={{ flex: 1, zIndex: 0 }}
+          mapType="mutedStandard"
+          showsUserLocation
+          showsMyLocationButton
+          region={region}
+          onRegionChangeComplete={handleRegionChange}
+          initialRegion={{
+            latitude: 10.8231,
+            longitude: 106.6297,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+          }}
+        />
+      </View>
+      <View style={styles.locationContainer}>
+        <View style={styles.icon}>
+          <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
+        </View>
+        <View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text1}>{getShortedAddress(locationPicked)}</Text>
+            <Text style={styles.text2}>{getDetailAddress(locationPicked)}</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.markerContainer}>
+        <View style={styles.markerHead}>
+          <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
+        </View>
+        <View style={styles.markerFoot} />
+        <View style={styles.markerBody} />
+      </View>
+    </View>
   );
 };
 
-export default GoogleMap;
+export default LocationPicker;

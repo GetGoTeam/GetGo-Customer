@@ -18,7 +18,7 @@ const styles = EStyleSheet.create({
     backgroundColor: colors.primary_100,
     padding: "1.2rem",
     borderRadius: 5,
-    marginTop: "2rem",
+    marginTop: "1.5rem",
     width: "90%",
   },
   icon: {

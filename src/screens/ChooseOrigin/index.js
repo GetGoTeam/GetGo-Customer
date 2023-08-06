@@ -13,16 +13,18 @@ const ChooseOrigin = () => {
 
   return (
     <View style={styles.container}>
-      <LocationPicker />
-      <View style={styles.backBtn}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.confirmBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate("BookVehicle")}>
-          <CustomBtn title="Chọn điểm đón này" />
-        </TouchableOpacity>
+      <View style={styles.locationPickerContainer}>
+        <LocationPicker />
+        <View style={styles.confirmBtn}>
+          <TouchableOpacity onPress={() => navigation.navigate("BookVehicle")}>
+            <CustomBtn title="Chọn điểm đón này" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.backBtn}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

@@ -9,6 +9,13 @@ const styles = EStyleSheet.create({
     justifyContent: "flex-start",
     width: "100%",
   },
+  locationPickerContainer: {
+    width: "100%",
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   backBtn: {
     position: "absolute",
     top: 50,
@@ -21,7 +28,7 @@ const styles = EStyleSheet.create({
   confirmBtn: {
     width: "90%",
     position: "relative",
-    bottom: 5,
+    bottom: 35,
   },
 });
 

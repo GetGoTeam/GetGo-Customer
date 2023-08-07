@@ -68,7 +68,7 @@ const styles = EStyleSheet.create({
   },
   markerContainer: {
     position: "absolute",
-    top: "35%",
+    top: "25%",
     display: "flex",
     alignItems: "center",
   },

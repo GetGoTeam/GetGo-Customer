@@ -2,10 +2,9 @@ import { TouchableOpacity, View, Text } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleLeft, faCircleDot } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import CustomBtn from "~components/Button/CustomBtn";
-import { colors, text } from "~utils/colors.js";
 import LocationPicker from "~components/LocationPicker";
 
 const ChooseOrigin = () => {

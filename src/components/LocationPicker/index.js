@@ -1,21 +1,54 @@
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import styles from "./styles";
 import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
 import { selectOrigin } from "~/slices/navSlice";
-import React, { useState } from "react";
-import { PermissionsAndroid, Platform } from "react-native";
-import Geolocation from "react-native-geolocation-service";
+import React, { useState, useEffect } from "react";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "~utils/colors.js";
+import * as Location from "expo-location";
 
 const LocationPicker = () => {
   const origin = useSelector(selectOrigin);
   const [region, setRegion] = useState(null);
+
   const [locationPicked, setLocationPicked] = useState();
+
+  const [currentLatitude, setCurrentLatitude] = useState(10.8231);
+  const [currentLongitude, setCurrentLongitude] = useState(106.6297);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // Kiểm tra quyền truy cập vị trí
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          console.warn("Quyền truy cập vị trí không được cấp, vui lòng kiểm tra lại.");
+          return;
+        }
+
+        // Lấy vị trí hiện tại
+        const location = await Location.getCurrentPositionAsync({});
+
+        // Gán giá trị vị trí hiện tại
+        setCurrentLatitude(location.coords.latitude);
+        setCurrentLongitude(location.coords.longitude);
+
+        // Chuyển đổi vị trí hiện tại thành địa chỉ
+        const address = await getPlaceFromCoordinates(location.coords.latitude, location.coords.longitude);
+        setLocationPicked(address);
+      } catch (error) {
+        console.error("Lỗi khi lấy vị trí:", error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   const handleRegionChange = async (region) => {
     const address = await getPlaceFromCoordinates(region.latitude, region.longitude);
@@ -51,93 +84,47 @@ const LocationPicker = () => {
     return address.substring(firstCommaIndex + 2, lastCommaIndex);
   };
 
-  const getCurrentLocation = () => {
-    if (Platform.OS === "android" && Platform.Version >= 23) {
-      // Kiểm tra và yêu cầu quyền truy cập vị trí trên Android 6.0 trở lên
-      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
-        .then((granted) => {
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            // Quyền truy cập vị trí đã được cấp
-            Geolocation.getCurrentPosition(
-              (position) => {
-                const { latitude, longitude } = position.coords;
-                setRegion({
-                  latitude,
-                  longitude,
-                  latitudeDelta: 0.01,
-                  longitudeDelta: 0.01,
-                });
-              },
-              (error) => {
-                console.log("Error:", error);
-              },
-              { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-            );
-          } else {
-            // Quyền truy cập vị trí bị từ chối
-            console.log("Location permission denied");
-          }
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
-    } else {
-      // Trường hợp là iOS hoặc Android dưới 6.0
-      Geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setRegion({
-            latitude,
-            longitude,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          });
-        },
-        (error) => {
-          console.log("Error:", error);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-      );
-    }
-  };
-
   return (
-    <View style={styles.container}>
-      <View style={styles.map}>
-        <MapView
-          style={{ flex: 1, zIndex: 0 }}
-          mapType="mutedStandard"
-          showsUserLocation
-          showsMyLocationButton
-          region={region}
-          onRegionChangeComplete={handleRegionChange}
-          initialRegion={{
-            latitude: 10.8231,
-            longitude: 106.6297,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}
-        />
-      </View>
-      <View style={styles.locationContainer}>
-        <View style={styles.icon}>
-          <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
-        </View>
-        <View>
-          <View style={styles.textContainer}>
-            <Text style={styles.text1}>{getShortedAddress(locationPicked)}</Text>
-            <Text style={styles.text2}>{getDetailAddress(locationPicked)}</Text>
+    <>
+      {!loading && (
+        <View style={styles.container}>
+          <View style={styles.map}>
+            <MapView
+              style={{ flex: 1, zIndex: 0 }}
+              mapType="mutedStandard"
+              showsUserLocation
+              showsMyLocationButton
+              region={region}
+              onRegionChangeComplete={handleRegionChange}
+              initialRegion={{
+                latitude: currentLatitude,
+                longitude: currentLongitude,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
+              }}
+            />
+          </View>
+          <View style={styles.locationContainer}>
+            <View style={styles.icon}>
+              <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
+            </View>
+            <View>
+              <View style={styles.textContainer}>
+                <Text style={styles.text1}>{getShortedAddress(locationPicked)}</Text>
+                <Text style={styles.text2}>{getDetailAddress(locationPicked)}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.markerContainer}>
+            <View style={styles.markerHead}>
+              <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
+            </View>
+            <View style={styles.markerFoot} />
+            <View style={styles.markerBody} />
           </View>
         </View>
-      </View>
-      <View style={styles.markerContainer}>
-        <View style={styles.markerHead}>
-          <FontAwesomeIcon icon={faCircleDot} size={25} color={colors.primary_300} />
-        </View>
-        <View style={styles.markerFoot} />
-        <View style={styles.markerBody} />
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 

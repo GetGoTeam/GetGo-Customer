@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GetGoDriver",
-    "slug": "GetGoDriver",
+    "name": "GetGo",
+    "slug": "GetGo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,6 +11,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow GetGo to use your location."
+        }
+      ]
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],

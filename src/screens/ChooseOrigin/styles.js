@@ -27,7 +27,7 @@ const styles = EStyleSheet.create({
   },
   confirmBtn: {
     width: "90%",
-    position: "relative",
+    position: "absolute",
     bottom: 35,
   },
 });

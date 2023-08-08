@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import { colors, text } from "~utils/colors.js";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -42,8 +42,6 @@ const GoogleApiSearch = (props) => {
     navigation.navigate("ChooseOrigin");
   };
 
-  handlePlaceSelect();
-
   return (
     <View style={[styles.container]}>
       <GooglePlacesAutocomplete
@@ -53,7 +51,9 @@ const GoogleApiSearch = (props) => {
         debounce={400}
         renderLeftButton={() => (
           <View style={[styles.icon]}>
-            <FontAwesomeIcon icon={icon} size={22} color={colors.primary_300} />
+            <TouchableOpacity onPress={() => navigation.navigate("ChooseDestinationOnMap")}>
+              <FontAwesomeIcon icon={icon} size={22} color={colors.primary_300} />
+            </TouchableOpacity>
           </View>
         )}
         textInputProps={{

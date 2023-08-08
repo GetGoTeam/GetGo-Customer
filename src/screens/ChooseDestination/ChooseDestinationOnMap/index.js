@@ -6,14 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 import CustomBtn from "~components/Button/CustomBtn";
 import MapView from "react-native-maps";
 import { useDispatch } from "react-redux";
-import { setOrigin } from "~/slices/navSlice";
+import { setDestination } from "~/slices/navSlice";
 import React, { useState, useEffect } from "react";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import axios from "axios";
 import { colors } from "~utils/colors.js";
 import * as Location from "expo-location";
 
-const ChooseOrigin = () => {
+const ChooseDestinationOnMap = () => {
   const navigation = useNavigation();
 
   const [addressPicked, setAddressPicked] = useState();
@@ -91,8 +91,8 @@ const ChooseOrigin = () => {
   };
 
   function handleConfirm() {
-    dispatch(setOrigin({ latitude: latitudePicked, longitude: longitudePicked }));
-    navigation.navigate("BookVehicle");
+    dispatch(setDestination({ latitude: latitudePicked, longitude: longitudePicked }));
+    navigation.navigate("ChooseOrigin");
   }
 
   return (
@@ -139,7 +139,7 @@ const ChooseOrigin = () => {
         </>
         <View style={styles.confirmBtn}>
           <TouchableOpacity onPress={handleConfirm}>
-            <CustomBtn title="Chọn điểm đón này" />
+            <CustomBtn title="Chọn điểm đến" />
           </TouchableOpacity>
         </View>
         <View style={styles.backBtn}>
@@ -158,4 +158,4 @@ const ChooseOrigin = () => {
   );
 };
 
-export default ChooseOrigin;
+export default ChooseDestinationOnMap;

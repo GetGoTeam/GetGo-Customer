@@ -28,7 +28,7 @@ const GoogleMap = () => {
       }}
     >
       <Marker coordinate={origin} title="Điểm đón" />
-      <Marker coordinate={destination} title="Điểm đến" />
+      <Marker coordinate={destination} title="Điểm đến" pinColor="aqua" />
       <MapViewDirections
         origin={origin}
         destination={destination}

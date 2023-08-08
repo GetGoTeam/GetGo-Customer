@@ -2,22 +2,27 @@ import { TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import ChooseVehicleItem from "~components/ChooseVehicleItem";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setVehicleType } from "~/slices/navSlice";
 
 const chooseVehicleData = [
   {
     title: "Xe máy",
     icon: require("~assets/motorcycle.png"),
     price: 30000,
+    type: "motorcycle",
   },
   {
     title: "Xe hơi 4 chỗ",
     icon: require("~assets/car.png"),
     price: 50000,
+    type: "car4",
   },
   {
     title: "Xe hơi 7 chỗ",
     icon: require("~assets/car.png"),
     price: 80000,
+    type: "car7",
   },
 ];
 

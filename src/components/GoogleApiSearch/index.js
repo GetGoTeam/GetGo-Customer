@@ -37,8 +37,8 @@ const GoogleApiSearch = (props) => {
   };
 
   const handlePlaceSelect = (data, details = null) => {
-    // console.log(JSON.stringify(details));
-    // getCoordinatesFromPlaceId("ChIJhycdB7ZUNDERV6HcjXynmrk");
+    const coordinates = getCoordinatesFromPlaceId(details.place_id);
+    console.log(coordinates);
     navigation.navigate("ChooseOrigin");
   };
 

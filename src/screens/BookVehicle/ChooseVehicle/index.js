@@ -3,7 +3,8 @@ import styles from "./styles";
 import ChooseVehicleItem from "~components/ChooseVehicleItem";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setVehicleType } from "~/slices/navSlice";
+import { selectVehicleType, setVehicleType } from "~/slices/navSlice";
+import { useSelector } from "react-redux";
 
 const chooseVehicleData = [
   {
@@ -27,7 +28,8 @@ const chooseVehicleData = [
 ];
 
 const ChooseVehicle = () => {
-  const [chooseIndex, setChooseIndex] = useState(0);
+  const vehicleType = useSelector(selectVehicleType);
+  const [chooseIndex, setChooseIndex] = useState(vehicleType === "motorcycle" ? 0 : 1);
 
   return (
     <View style={styles.container}>

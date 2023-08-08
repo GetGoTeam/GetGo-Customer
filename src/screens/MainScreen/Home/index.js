@@ -6,9 +6,12 @@ import BookingBtn from "~components/Button/BookingBtn";
 import QuickBookingBtn from "~components/Button/QuickBookingBtn";
 import ImageCarousel from "~components/ImageCarousel";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setVehicleType } from "~/slices/navSlice";
 
 const Home = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -37,10 +40,24 @@ const Home = () => {
 
             <View style={styles.bookingBtnContainer}>
               <View style={styles.bookingBtn}>
-                <TouchableOpacity onPress={() => navigation.navigate("ChooseDestination")} style={{ marginRight: 10 }}>
+                <TouchableOpacity
+                  style={{ marginRight: 10 }}
+                  onPress={() => {
+                    dispatch(setVehicleType("motorcycle"));
+                    navigation.navigate("ChooseDestination");
+                  }}
+                >
                   <BookingBtn title="Xe máy" icon={require("~assets/motorcycle.png")} />
                 </TouchableOpacity>
-                <BookingBtn title="Xe hơi" icon={require("~assets/car.png")} />
+                <TouchableOpacity
+                  style={{ marginRight: 10 }}
+                  onPress={() => {
+                    dispatch(setVehicleType("car4"));
+                    navigation.navigate("ChooseDestination");
+                  }}
+                >
+                  <BookingBtn title="Xe hơi" icon={require("~assets/car.png")} />
+                </TouchableOpacity>
               </View>
               <QuickBookingBtn
                 des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM"

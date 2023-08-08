@@ -68,7 +68,7 @@ const ChooseOrigin = () => {
       if (response.data.results.length > 0) {
         return response.data.results[0].formatted_address;
       } else {
-        console.log(response.data.error_message);
+        // console.log(response.data.error_message);
         return null;
       }
     } catch (error) {

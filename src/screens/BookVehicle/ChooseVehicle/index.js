@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectVehicleType, setVehicleType } from "~/slices/navSlice";
 import { useSelector } from "react-redux";
+import CustomBtn from "~components/Button/CustomBtn";
 
 const chooseVehicleData = [
   {
@@ -30,12 +31,20 @@ const chooseVehicleData = [
 const ChooseVehicle = () => {
   const vehicleType = useSelector(selectVehicleType);
   const [chooseIndex, setChooseIndex] = useState(vehicleType === "motorcycle" ? 0 : 1);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
       <View style={styles.chooseVehicleContainer}>
         {chooseVehicleData.map((item, index) => (
-          <TouchableOpacity onPress={() => setChooseIndex(index)} activeOpacity={0.8} key={index}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            key={index}
+            onPress={() => {
+              setChooseIndex(index);
+              dispatch(setVehicleType(item.type));
+            }}
+          >
             {index === 0 && <View style={styles.divLine} />}
             <ChooseVehicleItem
               key={index}

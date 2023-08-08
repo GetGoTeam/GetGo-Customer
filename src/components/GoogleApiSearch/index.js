@@ -5,14 +5,44 @@ import { colors, text } from "~utils/colors.js";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setDestination } from "~/slices/navSlice";
+import axios from "axios";
 
 const GoogleApiSearch = (props) => {
   const { hint, icon } = props;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const getCoordinatesFromPlaceId = async (placeId) => {
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${GOOGLE_MAPS_APIKEY}`;
+
+    try {
+      const response = await axios.get(url);
+      const { status, result } = response.data;
+
+      if (status === "OK" && result.geometry) {
+        const { location } = result.geometry;
+        return {
+          latitude: location.lat,
+          longitude: location.lng,
+        };
+      } else {
+        throw new Error("Failed to get coordinates from place_id.");
+      }
+    } catch (error) {
+      console.error("Error getting coordinates:", error);
+      throw error;
+    }
+  };
 
   const handlePlaceSelect = (data, details = null) => {
+    // console.log(JSON.stringify(details));
+    // getCoordinatesFromPlaceId("ChIJhycdB7ZUNDERV6HcjXynmrk");
     navigation.navigate("ChooseOrigin");
   };
+
+  handlePlaceSelect();
 
   return (
     <View style={[styles.container]}>

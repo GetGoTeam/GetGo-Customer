@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useSelector } from "react-redux";
-import { selectOrigin } from "~/slices/navSlice";
+import { selectOrigin, selectDestination } from "~/slices/navSlice";
 import React, { useEffect, useState } from "react";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import MapViewDirections from "react-native-maps-directions";
@@ -11,8 +11,11 @@ const GoogleMap = () => {
   // const origin = useSelector(selectOrigin);
   const [region, setRegion] = useState(null);
 
-  const origin = { latitude: 10.8231, longitude: 106.6297 }; // Tọa độ điểm xuất phát
-  const destination = { latitude: 10.7769, longitude: 106.6958 }; // Tọa độ điểm đích
+  // const origin = { latitude: 10.8231, longitude: 106.6297 };
+  // const destination = { latitude: 10.7769, longitude: 106.6958 };
+
+  const origin = useSelector(selectOrigin);
+  const destination = useSelector(selectDestination);
 
   return (
     <MapView

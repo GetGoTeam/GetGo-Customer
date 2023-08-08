@@ -5,8 +5,8 @@ import { faAngleLeft, faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import CustomBtn from "~components/Button/CustomBtn";
 import MapView from "react-native-maps";
-import { useSelector } from "react-redux";
-import { selectOrigin } from "~/slices/navSlice";
+import { useDispatch } from "react-redux";
+import { setOrigin } from "~/slices/navSlice";
 import React, { useState, useEffect } from "react";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import axios from "axios";
@@ -16,15 +16,14 @@ import * as Location from "expo-location";
 const ChooseOrigin = () => {
   const navigation = useNavigation();
 
-  const origin = useSelector(selectOrigin);
-  const [region, setRegion] = useState(null);
+  const [addressPicked, setAddressPicked] = useState();
 
-  const [locationPicked, setLocationPicked] = useState();
-
-  const [currentLatitude, setCurrentLatitude] = useState(10.8231);
-  const [currentLongitude, setCurrentLongitude] = useState(106.6297);
+  const [latitudePicked, setLatitudePicked] = useState(10.8231);
+  const [longitudePicked, setLongitudePicked] = useState(106.6297);
 
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -40,12 +39,12 @@ const ChooseOrigin = () => {
         const location = await Location.getCurrentPositionAsync({});
 
         // Gán giá trị vị trí hiện tại
-        setCurrentLatitude(location.coords.latitude);
-        setCurrentLongitude(location.coords.longitude);
+        setLatitudePicked(location.coords.latitude);
+        setLongitudePicked(location.coords.longitude);
 
         // Chuyển đổi vị trí hiện tại thành địa chỉ
         const address = await getPlaceFromCoordinates(location.coords.latitude, location.coords.longitude);
-        setLocationPicked(address);
+        setAddressPicked(address);
       } catch (error) {
         console.error("Lỗi khi lấy vị trí:", error);
       } finally {
@@ -55,8 +54,10 @@ const ChooseOrigin = () => {
   }, []);
 
   const handleRegionChange = async (region) => {
+    setLatitudePicked(region.latitude);
+    setLongitudePicked(region.longitude);
     const address = await getPlaceFromCoordinates(region.latitude, region.longitude);
-    setLocationPicked(address);
+    setAddressPicked(address);
   };
 
   const getPlaceFromCoordinates = async (latitude, longitude) => {
@@ -67,7 +68,8 @@ const ChooseOrigin = () => {
       if (response.data.results.length > 0) {
         return response.data.results[0].formatted_address;
       } else {
-        return "Unknown address";
+        console.warn(response.data.error_message);
+        return null;
       }
     } catch (error) {
       console.error("Error getting place from coordinates:", error);
@@ -88,6 +90,11 @@ const ChooseOrigin = () => {
     return address.substring(firstCommaIndex + 2, lastCommaIndex);
   };
 
+  function handleConfirm() {
+    dispatch(setOrigin({ latitude: latitudePicked, longitude: longitudePicked }));
+    navigation.navigate("BookVehicle");
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.locationPickerContainer}>
@@ -100,11 +107,10 @@ const ChooseOrigin = () => {
                   mapType="mutedStandard"
                   showsUserLocation
                   showsMyLocationButton
-                  region={region}
                   onRegionChangeComplete={handleRegionChange}
                   initialRegion={{
-                    latitude: currentLatitude,
-                    longitude: currentLongitude,
+                    latitude: latitudePicked,
+                    longitude: longitudePicked,
                     latitudeDelta: 0.005,
                     longitudeDelta: 0.005,
                   }}
@@ -116,8 +122,8 @@ const ChooseOrigin = () => {
                 </View>
                 <View>
                   <View style={styles.textContainer}>
-                    <Text style={styles.text1}>{getShortedAddress(locationPicked)}</Text>
-                    <Text style={styles.text2}>{getDetailAddress(locationPicked)}</Text>
+                    <Text style={styles.text1}>{getShortedAddress(addressPicked)}</Text>
+                    <Text style={styles.text2}>{getDetailAddress(addressPicked)}</Text>
                   </View>
                 </View>
               </View>
@@ -132,7 +138,7 @@ const ChooseOrigin = () => {
           )}
         </>
         <View style={styles.confirmBtn}>
-          <TouchableOpacity onPress={() => navigation.navigate("BookVehicle")}>
+          <TouchableOpacity onPress={handleConfirm}>
             <CustomBtn title="Chọn điểm đón này" />
           </TouchableOpacity>
         </View>

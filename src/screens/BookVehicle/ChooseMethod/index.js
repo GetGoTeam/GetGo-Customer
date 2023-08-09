@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Animated, ScrollView, Image, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, Animated, ScrollView, Image, Dimensions, ActivityIndicator } from "react-native";
 import { colors, text } from "~utils/colors.js";
 import styles from "./styles";
 import BookNow from "./BookNow";
@@ -55,41 +55,60 @@ export default class ChooseeMethod extends React.Component {
   };
 
   render() {
-    const { setConfirmBtnTitle } = this.props;
+    const { setConfirmBtnTitle, vehicleType, content, setContent } = this.props;
     let { xTabOne, xTabTwo, translateX, active, translateXTabOne, translateXTabTwo, translateY } = this.state;
+
     return (
       <View style={styles.container}>
-        <View style={styles.sliderContainer}>
-          <Animated.View style={[{ transform: [{ translateX }] }, styles.sliderAnimation]} />
-          <TouchableOpacity
-            style={styles.sliderItem}
-            onLayout={(event) =>
-              this.setState({
-                xTabOne: event.nativeEvent.layout.x,
-              })
-            }
-            onPress={() => {
-              this.setState({ active: 0 }, () => this.handleSlide(xTabOne));
-              setConfirmBtnTitle("Đặt xe");
-            }}
-          >
-            <Text style={[{ color: active === 0 ? colors.primary_300 : text.color_400 }, styles.title]}>Đặt ngay</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.sliderItem}
-            onLayout={(event) =>
-              this.setState({
-                xTabTwo: event.nativeEvent.layout.x,
-              })
-            }
-            onPress={() => {
-              this.setState({ active: 1 }, () => this.handleSlide(xTabTwo));
-              setConfirmBtnTitle("Lên lịch");
-            }}
-          >
-            <Text style={[{ color: active === 1 ? colors.primary_300 : text.color_400 }, styles.title]}>Hẹn giờ</Text>
-          </TouchableOpacity>
-        </View>
+        {content === "FindingDriver" ? (
+          <>
+            <View style={styles.findingDriverContainer}>
+              <Image
+                source={vehicleType === "motorcycle" ? require("~assets/motorcycle.png") : require("~assets/car.png")}
+                style={styles.findingDriverIcon}
+              />
+              <Text style={styles.findingDriverText}>Đang tìm xe</Text>
+              <ActivityIndicator color={colors.primary_300} />
+            </View>
+            <View style={styles.divLine} />
+          </>
+        ) : (
+          <View style={styles.sliderContainer}>
+            <Animated.View style={[{ transform: [{ translateX }] }, styles.sliderAnimation]} />
+            <TouchableOpacity
+              style={styles.sliderItem}
+              onLayout={(event) =>
+                this.setState({
+                  xTabOne: event.nativeEvent.layout.x,
+                })
+              }
+              onPress={() => {
+                this.setState({ active: 0 }, () => this.handleSlide(xTabOne));
+                setConfirmBtnTitle("Đặt xe");
+                setContent("BookNow");
+              }}
+            >
+              <Text style={[{ color: active === 0 ? colors.primary_300 : text.color_400 }, styles.title]}>
+                Đặt ngay
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.sliderItem}
+              onLayout={(event) =>
+                this.setState({
+                  xTabTwo: event.nativeEvent.layout.x,
+                })
+              }
+              onPress={() => {
+                this.setState({ active: 1 }, () => this.handleSlide(xTabTwo));
+                setConfirmBtnTitle("Lên lịch");
+                setContent("Scheduling");
+              }}
+            >
+              <Text style={[{ color: active === 1 ? colors.primary_300 : text.color_400 }, styles.title]}>Hẹn giờ</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View>
           <Animated.View

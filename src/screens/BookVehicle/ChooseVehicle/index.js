@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectVehicleType, setVehicleType } from "~/slices/navSlice";
 import { useSelector } from "react-redux";
-import CustomBtn from "~components/Button/CustomBtn";
 
 const chooseVehicleData = [
   {

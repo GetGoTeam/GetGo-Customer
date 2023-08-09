@@ -9,11 +9,29 @@ import ChooseeMethod from "./ChooseMethod";
 import CustomBtn from "~components/Button/CustomBtn";
 import { useState } from "react";
 import DriverInfo from "./DriverInfo";
+import { useSelector } from "react-redux";
+import { selectVehicleType } from "~/slices/navSlice";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
   const [confirmBtnTitle, setConfirmBtnTitle] = useState("Tiếp tục");
-  const [content, setContent] = useState(0);
+  const [content, setContent] = useState("ChooseVehicle");
+  const vehicleType = useSelector(selectVehicleType);
+
+  function handleConfirm() {
+    if (content === "ChooseVehicle") {
+      setConfirmBtnTitle("Đặt xe");
+      setContent("BookNow");
+    } else if (content === "BookNow") {
+      setConfirmBtnTitle("Hủy tìm kiếm");
+      setContent("FindingDriver");
+    } else if (content === "FindingDriver") {
+      setConfirmBtnTitle("Đặt xe");
+      setContent("BookNow");
+    } else if (content === "Scheduling") {
+      //...
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -23,9 +41,9 @@ const BookVehicle = () => {
       <View style={styles.backBtn}>
         <TouchableOpacity
           onPress={() => {
-            if (content === 0) navigation.goBack();
+            if (content === "ChooseVehicle") navigation.goBack();
             else {
-              setContent(0);
+              setContent("ChooseVehicle");
               setConfirmBtnTitle("Tiếp tục");
             }
           }}
@@ -39,18 +57,20 @@ const BookVehicle = () => {
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {content === 0 ? <ChooseVehicle /> : <ChooseeMethod setConfirmBtnTitle={setConfirmBtnTitle} />}
+          {content === "ChooseVehicle" ? (
+            <ChooseVehicle />
+          ) : (
+            <ChooseeMethod
+              setConfirmBtnTitle={setConfirmBtnTitle}
+              vehicleType={vehicleType}
+              content={content}
+              setContent={setContent}
+            />
+          )}
           {/* <DriverInfo /> */}
 
           <View style={styles.confirmBtn}>
-            <TouchableOpacity
-              onPress={() => {
-                if (content === 0) {
-                  setConfirmBtnTitle("Đặt xe");
-                  setContent(1);
-                }
-              }}
-            >
+            <TouchableOpacity onPress={handleConfirm}>
               <CustomBtn title={confirmBtnTitle} />
             </TouchableOpacity>
           </View>

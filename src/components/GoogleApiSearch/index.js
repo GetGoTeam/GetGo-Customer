@@ -23,22 +23,27 @@ const GoogleApiSearch = (props) => {
 
       if (status === "OK" && result.geometry) {
         const { location } = result.geometry;
-        return {
-          latitude: location.lat,
-          longitude: location.lng,
-        };
+        // console.log("location: ", location);
+        // return {
+        //   latitude: location.lat,
+        //   longitude: location.lng,
+        // };
+        return location;
       } else {
-        throw new Error("Failed to get coordinates from place_id.");
+        // throw new Error("Failed to get coordinates from place_id.");
+        console.log(response.data.error_message);
+        return null;
       }
     } catch (error) {
-      console.error("Error getting coordinates:", error);
+      // console.error("Error getting coordinates:", error);
       throw error;
     }
   };
 
   const handlePlaceSelect = (data, details = null) => {
     const coordinates = getCoordinatesFromPlaceId(details.place_id);
-    console.log(coordinates);
+    // const latitude = coordinates.lat;
+    // console.log("latitude: ", coordinates);
     navigation.navigate("ChooseOrigin");
   };
 

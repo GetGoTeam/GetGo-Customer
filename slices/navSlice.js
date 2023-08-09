@@ -4,7 +4,7 @@ const initialState = {
   origin: null,
   destination: null,
   vehicleType: "motorcycle",
-  travelTimeInfomation: null,
+  travelTime: null,
 };
 
 export const navSlice = createSlice({
@@ -20,18 +20,18 @@ export const navSlice = createSlice({
     setVehicleType: (state, action) => {
       state.vehicleType = action.payload;
     },
-    setTravelTimeInfomation: (state, action) => {
-      state.travelTimeInfomation = action.payload;
+    setTravelTime: (state, action) => {
+      state.travelTime = action.payload;
     },
   },
 });
 
-export const { setOrigin, setDestination, setVehicleType, setTravelTimeInfomation } = navSlice.actions;
+export const { setOrigin, setDestination, setVehicleType, setTravelTime } = navSlice.actions;
 
 // Selectors
 export const selectOrigin = (state) => state.nav.origin;
 export const selectDestination = (state) => state.nav.destination;
 export const selectVehicleType = (state) => state.nav.vehicleType;
-export const selectTravelTimeInfomation = (state) => state.nav.travelTimeInfomation;
+export const selectTravelTime = (state) => state.nav.travelTime;
 
 export default navSlice.reducer;

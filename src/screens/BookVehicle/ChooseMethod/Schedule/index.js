@@ -6,9 +6,12 @@ import { colors, text } from "~utils/colors.js";
 import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format, isPast } from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
+import { setTravelTime, selectTravelTime } from "~/slices/navSlice";
 
 const Schedule = () => {
-  const [selectDatetime, setSelectedDatetime] = useState("");
+  const dispatch = useDispatch();
+  const [selectDatetime, setSelectedDatetime] = useState(useSelector(selectTravelTime));
   const maxLength = 50;
 
   const origin = "227 Nguyễn Văn Cừ";
@@ -26,7 +29,10 @@ const Schedule = () => {
 
   const handleConfirm = (datetime) => {
     if (isPast(datetime)) Alert.alert("Lỗi", "Thời gian đặt xe không hợp lệ!");
-    else setSelectedDatetime(format(datetime, "dd/MM/yyyy") + " lúc " + format(datetime, "HH:mm"));
+    else {
+      setSelectedDatetime(format(datetime, "dd/MM/yyyy") + " lúc " + format(datetime, "HH:mm"));
+      dispatch(setTravelTime(format(datetime, "dd/MM/yyyy HH:mm")));
+    }
     hideDatePicker();
   };
 

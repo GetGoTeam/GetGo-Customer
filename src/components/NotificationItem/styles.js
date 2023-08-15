@@ -7,20 +7,18 @@ const styles = EStyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    marginVertical: "1rem",
   },
-  icon: {
-    height: "3rem",
-    width: "3rem",
-    resizeMode: "contain",
+  title_container: {
+    display: "flex",
+    flexDirection: "row",
   },
-  text_container: {
-    marginHorizontal: 10,
-    flex: 1,
-  },
-  destination: {
+  title: {
     fontSize: "1rem",
     fontWeight: 500,
     color: text.color_800,
+    marginLeft: "1rem",
   },
   time: {
     fontSize: "0.8rem",

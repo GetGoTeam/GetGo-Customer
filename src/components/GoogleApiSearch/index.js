@@ -23,7 +23,7 @@ const GoogleApiSearch = (props) => {
 
       if (status === "OK" && result.geometry) {
         const { location } = result.geometry;
-        // console.log("location: ", location);
+        console.log("location: ", location);
         // return {
         //   latitude: location.lat,
         //   longitude: location.lng,
@@ -41,7 +41,7 @@ const GoogleApiSearch = (props) => {
   };
 
   const handlePlaceSelect = (data, details = null) => {
-    const coordinates = getCoordinatesFromPlaceId(details.place_id);
+    // const coordinates = getCoordinatesFromPlaceId(details.place_id);
     // const latitude = coordinates.lat;
     // console.log("latitude: ", coordinates);
     navigation.navigate("ChooseOrigin");

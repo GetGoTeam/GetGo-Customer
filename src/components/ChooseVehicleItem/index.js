@@ -3,6 +3,7 @@ import styles from "./styles";
 import { colors } from "~utils/colors.js";
 
 function numberWithCommas(x) {
+  if (!x) return 0;
   x = x.toString();
   var pattern = /(-?\d+)(\d{3})/;
   while (pattern.test(x)) x = x.replace(pattern, "$1,$2");

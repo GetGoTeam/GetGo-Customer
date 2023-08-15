@@ -23,13 +23,13 @@ const GoogleMap = () => {
     >
       <Marker coordinate={origin} title="Điểm đón" />
       <Marker coordinate={destination} title="Điểm đến" pinColor="aqua" />
-      {/* <MapViewDirections
+      <MapViewDirections
         origin={origin}
         destination={destination}
         apikey={GOOGLE_MAPS_APIKEY}
-        strokeWidth={3}
+        strokeWidth={5}
         strokeColor={colors.primary_300}
-      /> */}
+      />
     </MapView>
   );
 };

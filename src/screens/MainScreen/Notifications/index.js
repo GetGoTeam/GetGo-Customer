@@ -33,9 +33,9 @@ const Notifications = () => {
         {data.map((item, index) => (
           <View key={index}>
             <Text style={styles.divLine} />
-            <View style={styles.notificationItem}>
+            <TouchableOpacity style={styles.notificationItem}>
               <NotificationItem title={item.title} time={item.time} />
-            </View>
+            </TouchableOpacity>
           </View>
         ))}
         <Text style={styles.divLine} />

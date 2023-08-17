@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import ActivityItem from "~components/ActivityItem";
 
@@ -32,14 +32,14 @@ const Activities = () => {
         {data.map((item, index) => (
           <View key={index}>
             <Text style={styles.divLine} />
-            <View style={styles.activityItem}>
+            <TouchableOpacity style={styles.activityItem}>
               <ActivityItem
                 destination={item.destination}
                 time={item.time}
                 price={item.price}
                 vehicleType={item.vehicleType}
               />
-            </View>
+            </TouchableOpacity>
           </View>
         ))}
         <Text style={styles.divLine} />

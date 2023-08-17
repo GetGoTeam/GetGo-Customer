@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomBtn from "~components/Button/CustomBtn";
 import MapView from "react-native-maps";
 import { useDispatch } from "react-redux";
-import { setDestination } from "~/slices/navSlice";
+import { setDestination, setDestinationAddress } from "~/slices/navSlice";
 import React, { useState, useEffect } from "react";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import axios from "axios";
@@ -92,6 +92,7 @@ const ChooseDestinationOnMap = () => {
 
   function handleConfirm() {
     dispatch(setDestination({ latitude: latitudePicked, longitude: longitudePicked }));
+    dispatch(setDestinationAddress(addressPicked));
     navigation.navigate("ChooseOrigin");
   }
 

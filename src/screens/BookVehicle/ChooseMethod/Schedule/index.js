@@ -7,15 +7,15 @@ import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format, isPast } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
-import { setTravelTime, selectTravelTime } from "~/slices/navSlice";
+import { setTravelTime, selectTravelTime, selectOriginAddress, selectDestinationAddress } from "~/slices/navSlice";
 
 const Schedule = () => {
   const dispatch = useDispatch();
   const [selectDatetime, setSelectedDatetime] = useState(useSelector(selectTravelTime));
   const maxLength = 50;
 
-  const origin = "227 Nguyễn Văn Cừ";
-  const destination = "300 An Dương Vương";
+  const origin = useSelector(selectOriginAddress);
+  const destination = useSelector(selectDestinationAddress);
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -73,7 +73,8 @@ const Schedule = () => {
 export default Schedule;
 
 function truncateString(str, maxLength) {
-  if (str.length <= maxLength) {
+  if (!str) return "N/A";
+  else if (str.length <= maxLength) {
     return str;
   } else {
     const truncatedStr = str.substring(0, maxLength);

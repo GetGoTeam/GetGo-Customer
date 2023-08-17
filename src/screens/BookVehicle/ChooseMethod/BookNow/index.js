@@ -3,12 +3,14 @@ import styles from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCircleDot, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { colors, text } from "~utils/colors.js";
+import { useSelector } from "react-redux";
+import { selectOriginAddress, selectDestinationAddress } from "~/slices/navSlice";
 
 const BookNow = () => {
   const maxLength = 50;
 
-  const origin = "227 Nguyễn Văn Cừ";
-  const destination = "300 An Dương Vương";
+  const origin = useSelector(selectOriginAddress);
+  const destination = useSelector(selectDestinationAddress);
 
   return (
     <View style={styles.containter}>
@@ -31,7 +33,8 @@ const BookNow = () => {
 export default BookNow;
 
 function truncateString(str, maxLength) {
-  if (str.length <= maxLength) {
+  if (!str) return "N/A";
+  else if (str.length <= maxLength) {
     return str;
   } else {
     const truncatedStr = str.substring(0, maxLength);

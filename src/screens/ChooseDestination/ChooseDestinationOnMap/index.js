@@ -8,7 +8,7 @@ import MapView from "react-native-maps";
 import { useDispatch } from "react-redux";
 import { setDestination, setDestinationAddress } from "~/slices/navSlice";
 import React, { useState, useEffect } from "react";
-import { GOOGLE_MAPS_APIKEY } from "@env";
+import { GOOGLE_MAPS_APIKEY, GOONG_APIKEY } from "@env";
 import axios from "axios";
 import { colors } from "~utils/colors.js";
 import * as Location from "expo-location";
@@ -61,7 +61,8 @@ const ChooseDestinationOnMap = () => {
   };
 
   const getPlaceFromCoordinates = async (latitude, longitude) => {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_APIKEY}`;
+    // const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_APIKEY}`;
+    const url = `https://rsapi.goong.io/Geocode?latlng=${latitude},${longitude}&api_key=${GOONG_APIKEY}`;
 
     try {
       const response = await axios.get(url);

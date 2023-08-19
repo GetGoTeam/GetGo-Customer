@@ -1,50 +1,54 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import { colors, text } from "~utils/colors.js";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { GOOGLE_MAPS_APIKEY } from "@env";
+import { GOOGLE_MAPS_APIKEY, GOONG_APIKEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setDestination } from "~/slices/navSlice";
-import axios from "axios";
+import { useState } from "react";
 
 const GoogleApiSearch = (props) => {
   const { hint, icon } = props;
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  const getCoordinatesFromPlaceId = async (placeId) => {
-    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${GOOGLE_MAPS_APIKEY}`;
-
+  const getCoordinatesFromAddress = async (address) => {
     try {
-      const response = await axios.get(url);
-      const { status, result } = response.data;
+      setLoading(true);
+      const url = `https://rsapi.goong.io/geocode?address=${encodeURIComponent(address)}&api_key=${GOONG_APIKEY}`;
 
-      if (status === "OK" && result.geometry) {
-        const { location } = result.geometry;
-        console.log("location: ", location);
-        // return {
-        //   latitude: location.lat,
-        //   longitude: location.lng,
-        // };
-        return location;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.results.length > 0) {
+        const latitude = data.results[0].geometry.location.lat;
+        const longitude = data.results[0].geometry.location.lng;
+        return {
+          lat: latitude,
+          lng: longitude,
+        };
       } else {
-        // throw new Error("Failed to get coordinates from place_id.");
-        console.log(response.data.error_message);
+        console.error("No results found.");
         return null;
       }
     } catch (error) {
-      // console.error("Error getting coordinates:", error);
+      console.error("Error:", error);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handlePlaceSelect = (data, details = null) => {
-    // const coordinates = getCoordinatesFromPlaceId(details.place_id);
-    // const latitude = coordinates.lat;
-    // console.log("latitude: ", coordinates);
-    navigation.navigate("ChooseOrigin");
+  const handlePlaceSelect = async (data, details = null) => {
+    try {
+      const coordinates = await getCoordinatesFromAddress(data);
+      dispatch(setDestination({ latitude: coordinates.lat, longitude: coordinates.lng }));
+    } finally {
+      navigation.navigate("ChooseOrigin");
+    }
   };
 
   return (
@@ -77,6 +81,11 @@ const GoogleApiSearch = (props) => {
           },
         }}
       />
+      {loading && (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
+        </View>
+      )}
     </View>
   );
 };

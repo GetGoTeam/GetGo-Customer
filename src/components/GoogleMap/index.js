@@ -5,7 +5,7 @@ import { selectOrigin, selectDestination } from "~/slices/navSlice";
 import React, { useState } from "react";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import MapViewDirections from "react-native-maps-directions";
-import { colors } from "~/src/utils/colors";
+import { colors } from "~utils/colors";
 
 const GoogleMap = () => {
   const origin = useSelector(selectOrigin);

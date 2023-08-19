@@ -43,6 +43,8 @@ const GoogleApiSearch = (props) => {
   };
 
   const handlePlaceSelect = async (data, details = null) => {
+    // console.log("data: ", data);
+    // console.log("details: ", details);
     try {
       const coordinates = await getCoordinatesFromAddress(data);
       dispatch(setDestination({ latitude: coordinates.lat, longitude: coordinates.lng }));

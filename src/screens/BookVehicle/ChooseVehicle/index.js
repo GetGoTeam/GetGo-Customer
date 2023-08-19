@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import ChooseVehicleItem from "~components/ChooseVehicleItem";
 import { useState, useEffect } from "react";
@@ -7,6 +7,7 @@ import { selectVehicleType, setVehicleType, selectOrigin, selectDestination } fr
 import { useSelector } from "react-redux";
 import { GOONG_APIKEY } from "@env";
 import axios from "axios";
+import { colors, text } from "~utils/colors.js";
 
 const DefaultChooseVehicleData = [
   {
@@ -123,6 +124,11 @@ const ChooseVehicle = () => {
           </TouchableOpacity>
         ))}
       </View>
+      {loading && (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
+        </View>
+      )}
     </View>
   );
 };

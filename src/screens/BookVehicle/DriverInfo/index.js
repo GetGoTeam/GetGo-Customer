@@ -13,7 +13,7 @@ const DriverInfo = () => {
       <View style={styles.divLine} />
       <View style={styles.driverInfoContainer}>
         <View style={styles.personalInfoContainer}>
-          <Image style={styles.avatar} source={require("~assets/noAvatar.png")} />
+          <Image style={styles.avatar} source={require("~assets/no-avatar.png")} />
           <View style={styles.nameRateContainer}>
             <Text style={styles.name}>Nguyễn Văn A</Text>
             <View style={styles.rateContainer}>

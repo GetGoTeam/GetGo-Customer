@@ -5,6 +5,8 @@ import ChooseDestinationOnMap from "~screens/ChooseDestination/ChooseDestination
 import MainScreen from "~screens/MainScreen";
 import ChooseOrigin from "~screens/ChooseOrigin";
 import BookVehicle from "~screens/BookVehicle";
+import SignIn from "~screens/SignIn";
+import SignUp from "~screens/SignUp";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {
@@ -15,6 +17,8 @@ const MainStackNavigator = () => {
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >
+      <MainStack.Screen name="SignIn" component={SignIn} />
+      <MainStack.Screen name="SignUp" component={SignUp} />
       <MainStack.Screen name="MainScreen" component={MainScreen} />
       <MainStack.Screen name="ChooseDestination" component={ChooseDestination} />
       <MainStack.Screen name="ChooseDestinationOnMap" component={ChooseDestinationOnMap} />

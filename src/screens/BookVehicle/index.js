@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Alert, Text } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleLeft, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import ChooseVehicle from "./ChooseVehicle";
 import ChooseeMethod from "./ChooseMethod";

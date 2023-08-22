@@ -41,8 +41,20 @@ const SignUp = () => {
       {!isKeyboardVisible && <Image style={styles.logo} source={require("~assets/logo.png")} />}
       <View style={styles.content}>
         <TextInput label="Số điện thoại" variant="standard" style={styles.textInput} color={colors.primary_300} />
-        <TextInput label="Mật khẩu" variant="standard" style={styles.textInput} color={colors.primary_300} />
-        <TextInput label="Xác nhận mật khẩu" variant="standard" style={styles.textInput} color={colors.primary_300} />
+        <TextInput
+          secureTextEntry
+          label="Mật khẩu"
+          variant="standard"
+          style={styles.textInput}
+          color={colors.primary_300}
+        />
+        <TextInput
+          secureTextEntry
+          label="Xác nhận mật khẩu"
+          variant="standard"
+          style={styles.textInput}
+          color={colors.primary_300}
+        />
         <TouchableOpacity style={styles.confirm}>
           <CustomBtn title="Đăng ký" />
         </TouchableOpacity>

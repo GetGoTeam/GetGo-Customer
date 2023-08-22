@@ -5,9 +5,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
 import GoogleApiSearch from "~components/GoogleApiSearch";
 import CustomBtn from "~components/Button/CustomBtn";
+import RecommendationItem from "~components/RecommendationItem";
+import { useDispatch } from "react-redux";
+import { setDestination, setDestinationAddress } from "~/slices/navSlice";
+import { useState } from "react";
 
 const ChooseDestination = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const recommendationData = [
+    {
+      address: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM",
+      lat: 10.762794,
+      lng: 106.682555,
+    },
+    {
+      address: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM",
+      lat: 10.762794,
+      lng: 106.682555,
+    },
+    {
+      address: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM",
+      lat: 10.762794,
+      lng: 106.682555,
+    },
+  ];
+
+  const handleRecommendationSelect = (item) => {
+    dispatch(setDestinationAddress(item.address));
+    dispatch(setDestination({ latitude: item.lat, longitude: item.lng }));
+  };
 
   return (
     <View style={styles.container}>
@@ -29,7 +57,20 @@ const ChooseDestination = () => {
           <View style={styles.searchBar}>
             <GoogleApiSearch hint="Đến đâu?" icon={faLocationDot} />
           </View>
-          <View style={styles.recommendation}></View>
+          <View style={styles.recommendation}>
+            {recommendationData.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  handleRecommendationSelect(item);
+                  navigation.navigate("ChooseOrigin");
+                }}
+              >
+                <RecommendationItem address={item.address} />
+                <View style={styles.divLine} />
+              </TouchableOpacity>
+            ))}
+          </View>
           {/* <View style={styles.confirmBtn}>
             <TouchableOpacity onPress={() => navigation.navigate("ChooseOrigin")}>
               <CustomBtn title="Chọn điểm đến" />

@@ -32,7 +32,13 @@ const SignIn = () => {
       {!isKeyboardVisible && <Image style={styles.logo} source={require("~assets/logo.png")} />}
       <View style={styles.content}>
         <TextInput label="Số điện thoại" variant="standard" style={styles.textInput} color={colors.primary_300} />
-        <TextInput label="Mật khẩu" variant="standard" style={styles.textInput} color={colors.primary_300} />
+        <TextInput
+          secureTextEntry
+          label="Mật khẩu"
+          variant="standard"
+          style={styles.textInput}
+          color={colors.primary_300}
+        />
         <View style={styles.forgotPasswordContainer}>
           <TouchableOpacity>
             <Text style={styles.text}>Quên mật khẩu</Text>

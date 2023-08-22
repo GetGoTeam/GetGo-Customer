@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
 import { colors, text } from "~utils/colors.js";
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary_50,
@@ -79,7 +79,12 @@ const styles = StyleSheet.create({
   },
   recommendation: {
     marginTop: 30,
-    height: "60%",
+    width: "90%",
+  },
+  divLine: {
+    width: "100%",
+    height: 1,
+    backgroundColor: text.color_300,
   },
   confirmBtn: {
     width: "90%",

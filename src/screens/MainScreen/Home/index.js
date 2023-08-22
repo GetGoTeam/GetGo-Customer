@@ -59,10 +59,12 @@ const Home = () => {
                   <BookingBtn title="Xe hơi" icon={require("~assets/car.png")} />
                 </TouchableOpacity>
               </View>
-              <QuickBookingBtn
-                des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM"
-                icon={require("~assets/car.png")}
-              />
+              <TouchableOpacity>
+                <QuickBookingBtn
+                  des="103 Trần Đình Xu, P.Nguyễn Cư Trinh, Q.1, TP.HCM"
+                  icon={require("~assets/car.png")}
+                />
+              </TouchableOpacity>
             </View>
 
             <View style={styles.carousel}>

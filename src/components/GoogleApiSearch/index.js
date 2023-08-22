@@ -6,7 +6,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLE_MAPS_APIKEY, GOONG_APIKEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setDestination } from "~/slices/navSlice";
+import { setDestination, setDestinationAddress } from "~/slices/navSlice";
 import { useState } from "react";
 
 const GoogleApiSearch = (props) => {
@@ -45,6 +45,7 @@ const GoogleApiSearch = (props) => {
   const handlePlaceSelect = async (data, details = null) => {
     try {
       const coordinates = await getCoordinatesFromAddress(data.description);
+      dispatch(setDestinationAddress(data.description));
       dispatch(setDestination({ latitude: coordinates.lat, longitude: coordinates.lng }));
     } finally {
       navigation.navigate("ChooseOrigin");

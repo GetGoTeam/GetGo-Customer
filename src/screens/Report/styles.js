@@ -9,14 +9,10 @@ const styles = EStyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  reportContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: 25,
-    marginTop: "3rem",
+  backBtn: {
+    position: "absolute",
+    top: 50,
+    left: 20,
   },
   avatarContainer: {
     display: "flex",
@@ -39,7 +35,7 @@ const styles = EStyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: "1.5rem",
+    paddingHorizontal: "1.3rem",
   },
   text1: {
     fontSize: "1.3rem",
@@ -53,16 +49,29 @@ const styles = EStyleSheet.create({
     color: text.color_500,
     textAlign: "center",
   },
-  ratingBar: {
-    backgroundColor: "transparent",
-  },
-  ratingBar: {
+  checkboxContainer: {
     marginVertical: "1.5rem",
-    width: "100%",
+    width: "85%",
+  },
+  checkboxItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: "1rem",
+  },
+  checkbox: {
+    width: "1rem",
+    height: "1rem",
+  },
+  checkboxLabel: {
+    marginLeft: "0.6rem",
+    color: text.color_700,
+    fontWeight: 500,
+    fontSize: "0.9rem",
   },
   TextInputContainer: {
     width: "85%",
-    height: "12rem",
+    height: "8rem",
     borderColor: text.color_300,
     borderWidth: 1,
     borderRadius: 8,

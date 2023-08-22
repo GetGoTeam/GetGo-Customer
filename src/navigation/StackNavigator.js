@@ -8,6 +8,7 @@ import BookVehicle from "~screens/BookVehicle";
 import SignIn from "~screens/SignIn";
 import SignUp from "~screens/SignUp";
 import Feedback from "~screens/Feedback";
+import Report from "~screens/Report";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {
@@ -18,7 +19,6 @@ const MainStackNavigator = () => {
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >
-      <MainStack.Screen name="Feedback" component={Feedback} />
       <MainStack.Screen name="SignIn" component={SignIn} />
       <MainStack.Screen name="SignUp" component={SignUp} />
       <MainStack.Screen name="MainScreen" component={MainScreen} />
@@ -26,6 +26,8 @@ const MainStackNavigator = () => {
       <MainStack.Screen name="ChooseDestinationOnMap" component={ChooseDestinationOnMap} />
       <MainStack.Screen name="ChooseOrigin" component={ChooseOrigin} />
       <MainStack.Screen name="BookVehicle" component={BookVehicle} />
+      <MainStack.Screen name="Feedback" component={Feedback} />
+      <MainStack.Screen name="Report" component={Report} />
     </MainStack.Navigator>
   );
 };

@@ -19,8 +19,8 @@ const MainStackNavigator = () => {
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >
-      <MainStack.Screen name="SignIn" component={SignIn} />
-      <MainStack.Screen name="SignUp" component={SignUp} />
+      {/* <MainStack.Screen name="SignIn" component={SignIn} />
+      <MainStack.Screen name="SignUp" component={SignUp} /> */}
       <MainStack.Screen name="MainScreen" component={MainScreen} />
       <MainStack.Screen name="ChooseDestination" component={ChooseDestination} />
       <MainStack.Screen name="ChooseDestinationOnMap" component={ChooseDestinationOnMap} />

@@ -1,11 +1,10 @@
-import { StyleSheet } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
 import { colors, text } from "~utils/colors.js";
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   containter: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: 30,
     alignItems: "center",
     height: "100%",
     width: "100%",
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   locationText: {
-    fontSize: 18,
+    fontSize: "1rem",
     fontWeight: 600,
     color: text.color_800,
   },
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 1,
     backgroundColor: text.color_300,
-    marginVertical: 20,
+    marginVertical: "1rem",
   },
 });
 

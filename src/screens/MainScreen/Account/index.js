@@ -1,13 +1,37 @@
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChevronRight, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faLock, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { colors, text } from "~utils/colors.js";
 import { useState } from "react";
 import ToolItem from "~components/ToolItem";
+import { useDispatch } from "react-redux";
+import { setToken } from "~/slices/navSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const Account = () => {
   const [vip, setVip] = useState(false);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleLogout = () => {
+    Alert.alert("Đăng xuất", "Bạn có chắc muốn đăng xuất khỏi tài khoản này?", [
+      {
+        text: "Hủy",
+        style: "cancel",
+      },
+      {
+        text: "Đồng ý",
+        onPress: () => {
+          dispatch(setToken(null));
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "SignIn" }],
+          });
+        },
+      },
+    ]);
+  };
 
   return (
     <View style={styles.container}>
@@ -42,6 +66,10 @@ const Account = () => {
           <View style={styles.divLine} />
           <TouchableOpacity style={styles.toolItem}>
             <ToolItem title="Đổi mật khẩu" icon={faLock} />
+          </TouchableOpacity>
+          <View style={styles.divLine} />
+          <TouchableOpacity style={styles.toolItem} onPress={handleLogout}>
+            <ToolItem title="Đăng xuất" icon={faRightFromBracket} />
           </TouchableOpacity>
           <View style={styles.divLine} />
         </View>

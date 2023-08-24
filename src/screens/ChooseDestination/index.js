@@ -1,4 +1,4 @@
-import { Text, View, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import { faAngleLeft, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -12,6 +12,7 @@ import GoongApiSearch from "~components/GoongApiSearch";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import { useState } from "react";
 import { colors, text } from "~utils/colors.js";
+import Loading from "~components/Loading";
 
 const ChooseDestination = () => {
   const navigation = useNavigation();
@@ -84,11 +85,7 @@ const ChooseDestination = () => {
           </View> */}
           </View>
         </View>
-        {loading && (
-          <View style={styles.loading}>
-            <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
-          </View>
-        )}
+        <Loading loading={loading} />
       </View>
     </AutocompleteDropdownContextProvider>
   );

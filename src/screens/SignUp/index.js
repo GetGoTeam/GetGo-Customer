@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, Keyboard, Alert } from "react-native";
+import { View, TouchableOpacity, Image, Keyboard, Alert } from "react-native";
 import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
 import { colors, text } from "~utils/colors.js";
@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
+import Loading from "~components/Loading";
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -127,11 +128,7 @@ const SignUp = () => {
         </TouchableOpacity>
       </View>
 
-      {loading && (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
-        </View>
-      )}
+      <Loading loading={loading} />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text, ActivityIndicator } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import styles from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft, faCircleDot } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,7 @@ import { GOOGLE_MAPS_APIKEY, GOONG_APIKEY } from "@env";
 import axios from "axios";
 import { colors } from "~utils/colors.js";
 import * as Location from "expo-location";
+import Loading from "~components/Loading";
 
 const ChooseOrigin = () => {
   const navigation = useNavigation();
@@ -151,11 +152,7 @@ const ChooseOrigin = () => {
         </View>
       </View>
 
-      {loading && (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
-        </View>
-      )}
+      <Loading loading={loading} />
     </View>
   );
 };

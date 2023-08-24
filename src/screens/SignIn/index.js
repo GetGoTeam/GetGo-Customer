@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, Keyboard, ActivityIndicator, Alert, Button } from "react-native";
+import { Text, View, TouchableOpacity, Image, Keyboard, Alert } from "react-native";
 import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
 import { colors, text } from "~utils/colors.js";
@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setToken } from "~/slices/navSlice";
 import request from "~utils/request";
+import Loading from "~components/Loading";
 
 const SignIn = () => {
   const navigation = useNavigation();
@@ -95,11 +96,7 @@ const SignIn = () => {
         </View>
       </View>
 
-      {loading && (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
-        </View>
-      )}
+      <Loading loading={loading} />
     </View>
   );
 };

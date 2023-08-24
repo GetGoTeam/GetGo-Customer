@@ -7,6 +7,7 @@ const initialState = {
   destinationAddress: null,
   vehicleType: "motorcycle",
   travelTime: null,
+  token: null,
 };
 
 export const navSlice = createSlice({
@@ -31,11 +32,21 @@ export const navSlice = createSlice({
     setTravelTime: (state, action) => {
       state.travelTime = action.payload;
     },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
   },
 });
 
-export const { setOrigin, setOriginAddress, setDestination, setDestinationAddress, setVehicleType, setTravelTime } =
-  navSlice.actions;
+export const {
+  setOrigin,
+  setOriginAddress,
+  setDestination,
+  setDestinationAddress,
+  setVehicleType,
+  setTravelTime,
+  setToken,
+} = navSlice.actions;
 
 // Selectors
 export const selectOrigin = (state) => state.nav.origin;
@@ -44,5 +55,6 @@ export const selectDestination = (state) => state.nav.destination;
 export const selectDestinationAddress = (state) => state.nav.destinationAddress;
 export const selectVehicleType = (state) => state.nav.vehicleType;
 export const selectTravelTime = (state) => state.nav.travelTime;
+export const selectToken = (state) => state.nav.token;
 
 export default navSlice.reducer;

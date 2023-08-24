@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, Keyboard } from "react-native";
+import { Text, View, TouchableOpacity, Image, Keyboard, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
 import { colors, text } from "~utils/colors.js";
@@ -6,10 +6,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import CustomBtn from "~components/Button/CustomBtn";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setToken } from "~/slices/navSlice";
 
 const SignIn = () => {
   const navigation = useNavigation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -25,6 +30,24 @@ const SignIn = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  const handleComfirm = async () => {
+    // setLoading(true);
+    var objLogin = {
+      email: "customer@gmail.com",
+      password: "123456",
+    };
+
+    await axios
+      .post(`http://localhost:3001/api/customers/login`, objLogin)
+      .then((res) => {
+        console.log(res.data);
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -44,7 +67,7 @@ const SignIn = () => {
             <Text style={styles.text}>Quên mật khẩu</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleComfirm}>
           <CustomBtn title="Đăng nhập" />
         </TouchableOpacity>
         <View style={styles.signUpContainer}>
@@ -54,6 +77,12 @@ const SignIn = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      {loading && (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={colors.primary_300} animating hidesWhenStopped />
+        </View>
+      )}
     </View>
   );
 };

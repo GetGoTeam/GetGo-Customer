@@ -19,19 +19,19 @@ const ChooseVehicle = (props) => {
     {
       title: "Xe máy",
       icon: require("~assets/motorcycle.png"),
-      price: roundNumber((10000 * distanceMotocycle) / 1000),
+      price: distanceMotocycle < 1000 ? 10000 : roundNumber((10000 * distanceMotocycle) / 1000),
       type: "motorcycle",
     },
     {
       title: "Xe hơi 4 chỗ",
       icon: require("~assets/car.png"),
-      price: roundNumber((20000 * distanceCar) / 1000),
+      price: distanceCar < 1000 ? 20000 : roundNumber((20000 * distanceCar) / 1000),
       type: "car4",
     },
     {
       title: "Xe hơi 7 chỗ",
       icon: require("~assets/car.png"),
-      price: roundNumber((30000 * distanceCar) / 1000),
+      price: distanceCar < 1000 ? 30000 : roundNumber((30000 * distanceCar) / 1000),
       type: "car7",
     },
   ];

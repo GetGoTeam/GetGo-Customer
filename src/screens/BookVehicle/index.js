@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Alert, Text } from "react-native";
+import { TouchableOpacity, View, Alert } from "react-native";
 import styles from "./styles";
 import GoogleMap from "~components/GoogleMap";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -7,10 +7,13 @@ import { useNavigation } from "@react-navigation/native";
 import ChooseVehicle from "./ChooseVehicle";
 import ChooseeMethod from "./ChooseMethod";
 import CustomBtn from "~components/Button/CustomBtn";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DriverInfo from "./DriverInfo";
 import { useSelector, useDispatch } from "react-redux";
-import { selectVehicleType, selectTravelTime, setTravelTime } from "~/slices/navSlice";
+import { selectVehicleType, selectTravelTime, setTravelTime, selectOrigin, selectDestination } from "~/slices/navSlice";
+import { decode } from "@googlemaps/polyline-codec";
+import { GOONG_APIKEY } from "@env";
+import Loading from "~components/Loading";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
@@ -18,7 +21,71 @@ const BookVehicle = () => {
   const [content, setContent] = useState("ChooseVehicle");
   const vehicleType = useSelector(selectVehicleType);
   const travelTime = useSelector(selectTravelTime);
+  const origin = useSelector(selectOrigin);
+  const destination = useSelector(selectDestination);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [polylineMotocycle, setPolylineMotocycle] = useState();
+  const [distanceMotocycle, setDistanceMotocycle] = useState();
+  const [polylineCar, setPolylineCar] = useState();
+  const [distanceCar, setDistanceCar] = useState();
+  const [vehiclechoose, setVehicleChoose] = useState(vehicleType);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const polylineMotocycleTmp = await getPolyline(
+          origin.latitude,
+          origin.longitude,
+          destination.latitude,
+          destination.longitude,
+          "bike"
+        );
+        setPolylineMotocycle(polylineMotocycleTmp.polyline);
+        setDistanceMotocycle(polylineMotocycleTmp.distance);
+
+        const polylineCarTmp = await getPolyline(
+          origin.latitude,
+          origin.longitude,
+          destination.latitude,
+          destination.longitude,
+          "car"
+        );
+        setPolylineCar(polylineCarTmp.polyline);
+        setDistanceCar(polylineCarTmp.distance);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  const getPolyline = async (oriLat, oriLng, desLat, desLng, vehicle) => {
+    try {
+      const url = `https://rsapi.goong.io/Direction?origin=${oriLat},${oriLng}&destination=${desLat},${desLng}&vehicle=${vehicle}&api_key=${GOONG_APIKEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.geocoded_waypoints[0].geocoder_status === "OK") {
+        const polyline = decode(data.routes[0].overview_polyline.points).map((point) => {
+          return {
+            latitude: point[0],
+            longitude: point[1],
+          };
+        });
+        const distance = data.routes[0].legs[0].distance.value;
+        return { distance: distance, polyline: polyline };
+      } else {
+        console.error("No results found.");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  };
 
   function handleConfirm() {
     if (content === "ChooseVehicle") {
@@ -65,7 +132,7 @@ const BookVehicle = () => {
   return (
     <View style={styles.container}>
       <View style={styles.map}>
-        <GoogleMap />
+        {!loading && <GoogleMap polyline={vehiclechoose === "motorcycle" ? polylineMotocycle : polylineCar} />}
       </View>
       <View style={styles.backBtn}>
         <TouchableOpacity
@@ -87,7 +154,11 @@ const BookVehicle = () => {
         </View>
         <View style={styles.content}>
           {content === "ChooseVehicle" ? (
-            <ChooseVehicle />
+            <ChooseVehicle
+              setVehicleChoose={setVehicleChoose}
+              distanceMotocycle={distanceMotocycle}
+              distanceCar={distanceCar}
+            />
           ) : (
             <ChooseeMethod
               setConfirmBtnTitle={setConfirmBtnTitle}
@@ -105,6 +176,7 @@ const BookVehicle = () => {
           </View>
         </View>
       </View>
+      <Loading loading={loading} />
     </View>
   );
 };

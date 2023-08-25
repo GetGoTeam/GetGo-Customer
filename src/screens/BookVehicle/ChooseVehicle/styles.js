@@ -31,15 +31,6 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: text.color_300,
   },
-  loading: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
 });
 
 export default styles;

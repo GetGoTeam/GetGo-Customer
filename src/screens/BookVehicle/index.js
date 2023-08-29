@@ -14,6 +14,8 @@ import { selectVehicleType, selectTravelTime, setTravelTime, selectOrigin, selec
 import { decode } from "@googlemaps/polyline-codec";
 import { GOONG_APIKEY } from "@env";
 import Loading from "~components/Loading";
+import { Parallelogram } from "~components/Shape";
+import { colors } from "~utils/colors";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
@@ -129,6 +131,19 @@ const BookVehicle = () => {
     return new Date(year, month - 1, day, hour, minute);
   }
 
+  function hexToRgb(hex) {
+    // Xóa ký tự "#" nếu có
+    hex = hex.replace("#", "");
+
+    // Chuyển đổi mã hex thành giá trị RGB
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // Trả về kết quả dưới dạng chuỗi mã màu RGB
+    return `${r}, ${g}, ${b}`;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.map}>
@@ -144,8 +159,20 @@ const BookVehicle = () => {
             }
           }}
         >
-          <FontAwesomeIcon icon={faAngleLeft} size={22} color={"rgba(0, 0, 0, 0.8)"} />
+          <FontAwesomeIcon icon={faAngleLeft} color={"rgba(0, 0, 0, 0.8)"} />
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.distanceLabel}>
+        <Parallelogram
+          bgColor={`rgba(${hexToRgb(colors.primary_300)}, ${0.9})`}
+          w={
+            (((vehiclechoose === "motorcycle" ? distanceMotocycle : distanceCar) / 1000).toFixed(1) + " km").length * 7
+          }
+          h={25}
+          label={((vehiclechoose === "motorcycle" ? distanceMotocycle : distanceCar) / 1000).toFixed(1) + " km"}
+          labelStyle={{ color: "white", fontSize: 12 }}
+        />
       </View>
 
       <View style={styles.contentContainer}>

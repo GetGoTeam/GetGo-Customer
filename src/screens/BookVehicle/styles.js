@@ -69,6 +69,11 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: text.color_300,
   },
+  distanceLabel: {
+    position: "absolute",
+    top: 50,
+    right: 20,
+  },
 });
 
 export default styles;

@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { GOOGLE_MAPS_APIKEY, GOONG_APIKEY } from "@env";
 import MapViewDirections from "react-native-maps-directions";
 import { colors } from "~utils/colors";
-import { decode } from "@googlemaps/polyline-codec";
 
 const GoogleMap = (props) => {
   const origin = useSelector(selectOrigin);

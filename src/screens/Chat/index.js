@@ -50,9 +50,17 @@ export default () => {
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", () => {
-      scrollViewRef.current?.scrollToEnd({ animated: true });
+      scrollToBottom();
     });
   }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
+  const scrollToBottom = () => {
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  };
 
   return (
     <View style={styles.container}>

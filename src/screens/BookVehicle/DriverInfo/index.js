@@ -4,8 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar, faMotorcycle, faComments, faSquarePhone } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "~utils/colors.js";
 import SearchBar from "~components/SearchBar";
+import { useNavigation } from "@react-navigation/native";
 
 const DriverInfo = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.notification}>Tài xế sắp đến</Text>
@@ -31,12 +34,12 @@ const DriverInfo = () => {
         </View>
       </View>
       <View style={styles.chatContainer}>
-        <View style={styles.chatBar}>
+        <TouchableOpacity style={styles.chatBar} onPress={() => navigation.navigate("Chat")}>
           <SearchBar hint="Chat với tài xế" icon={faComments} bgColor={colors.primary_50} editable={false} />
-        </View>
-        <View style={styles.callIcon}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.callIcon}>
           <FontAwesomeIcon icon={faSquarePhone} size={50} color={colors.primary_300} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

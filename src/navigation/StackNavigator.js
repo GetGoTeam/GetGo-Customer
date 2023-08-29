@@ -9,6 +9,7 @@ import SignIn from "~screens/SignIn";
 import SignUp from "~screens/SignUp";
 import Feedback from "~screens/Feedback";
 import Report from "~screens/Report";
+import Chat from "~screens/Chat";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {
@@ -28,6 +29,7 @@ const MainStackNavigator = () => {
       <MainStack.Screen name="BookVehicle" component={BookVehicle} />
       <MainStack.Screen name="Feedback" component={Feedback} />
       <MainStack.Screen name="Report" component={Report} />
+      <MainStack.Screen name="Chat" component={Chat} />
     </MainStack.Navigator>
   );
 };

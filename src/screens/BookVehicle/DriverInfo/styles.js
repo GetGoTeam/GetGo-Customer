@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: 45,
     resizeMode: "center",
     borderRadius: 100,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: text.color_300,
   },
   nameRateContainer: {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   chatBar: {
-    width: "85%",
+    flex: 1,
   },
   callIcon: {
     marginLeft: 10,

@@ -180,7 +180,7 @@ const BookVehicle = () => {
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {content === "ChooseVehicle" ? (
+          {/* {content === "ChooseVehicle" ? (
             <ChooseVehicle
               setVehicleChoose={setVehicleChoose}
               distanceMotocycle={distanceMotocycle}
@@ -193,8 +193,8 @@ const BookVehicle = () => {
               content={content}
               setContent={setContent}
             />
-          )}
-          {/* <DriverInfo /> */}
+          )} */}
+          <DriverInfo />
 
           <View style={styles.confirmBtn}>
             <TouchableOpacity onPress={handleConfirm}>

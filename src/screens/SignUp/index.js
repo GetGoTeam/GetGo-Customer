@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "~components/Loading";
+import request from "~utils/request";
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -48,7 +49,7 @@ const SignUp = () => {
     } else if (password.length < 6) {
       Alert.alert("Lỗi", "Mật khẩu phải có độ dài từ 6 ký tự trở lên.");
       return;
-    } else if (password === repassword) {
+    } else if (password !== repassword) {
       Alert.alert("Lỗi", "Mật khẩu xác nhận không trùng khớp.");
       return;
     }

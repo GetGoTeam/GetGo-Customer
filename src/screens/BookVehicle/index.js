@@ -10,12 +10,23 @@ import CustomBtn from "~components/Button/CustomBtn";
 import { useState, useEffect } from "react";
 import DriverInfo from "./DriverInfo";
 import { useSelector, useDispatch } from "react-redux";
-import { selectVehicleType, selectTravelTime, setTravelTime, selectOrigin, selectDestination } from "~/slices/navSlice";
+import {
+  selectVehicleType,
+  selectTravelTime,
+  setTravelTime,
+  selectOrigin,
+  selectDestination,
+  selectToken,
+  selectOriginAddress,
+  selectDestinationAddress,
+  selectUserInfo,
+} from "~/slices/navSlice";
 import { decode } from "@googlemaps/polyline-codec";
 import { GOONG_APIKEY } from "@env";
 import Loading from "~components/Loading";
 import { Parallelogram } from "~components/Shape";
 import { colors } from "~utils/colors";
+import request from "~utils/request";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
@@ -24,7 +35,9 @@ const BookVehicle = () => {
   const vehicleType = useSelector(selectVehicleType);
   const travelTime = useSelector(selectTravelTime);
   const origin = useSelector(selectOrigin);
+  const originAddress = useSelector(selectOriginAddress);
   const destination = useSelector(selectDestination);
+  const destinationAddress = useSelector(selectDestinationAddress);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [polylineMotocycle, setPolylineMotocycle] = useState();
@@ -32,6 +45,12 @@ const BookVehicle = () => {
   const [polylineCar, setPolylineCar] = useState();
   const [distanceCar, setDistanceCar] = useState();
   const [vehiclechoose, setVehicleChoose] = useState(vehicleType);
+  const token = useSelector(selectToken);
+  const userInfo = useSelector(selectUserInfo);
+
+  const headers = {
+    Authorization: "Bearer " + token,
+  };
 
   useEffect(() => {
     (async () => {
@@ -89,13 +108,38 @@ const BookVehicle = () => {
     }
   };
 
+  const handleBookNow = async () => {
+    setLoading(true);
+    const obj = {
+      phone: userInfo.phone,
+      address_pickup: originAddress,
+      lat_pickup: origin.latitude,
+      long_pickup: origin.longitude,
+      address_destination: destinationAddress,
+      lat_destination: destination.latitude,
+      long_destination: destination.longitude,
+      vehicleType: vehiclechoose === "motorcycle" ? 1 : vehiclechoose === "car4" ? 4 : 7,
+    };
+    await request
+      .post("create-trip", obj, { headers: headers })
+      .then(function (res) {
+        setConfirmBtnTitle("Hủy tìm kiếm");
+        setContent("FindingDriver");
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+        setLoading(false);
+      });
+  };
+
   function handleConfirm() {
     if (content === "ChooseVehicle") {
       setConfirmBtnTitle("Đặt xe");
       setContent("BookNow");
     } else if (content === "BookNow") {
-      setConfirmBtnTitle("Hủy tìm kiếm");
-      setContent("FindingDriver");
+      handleBookNow();
     } else if (content === "FindingDriver") {
       setConfirmBtnTitle("Đặt xe");
       setContent("BookNow");
@@ -132,15 +176,10 @@ const BookVehicle = () => {
   }
 
   function hexToRgb(hex) {
-    // Xóa ký tự "#" nếu có
     hex = hex.replace("#", "");
-
-    // Chuyển đổi mã hex thành giá trị RGB
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
-
-    // Trả về kết quả dưới dạng chuỗi mã màu RGB
     return `${r}, ${g}, ${b}`;
   }
 

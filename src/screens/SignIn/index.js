@@ -7,7 +7,7 @@ import CustomBtn from "~components/Button/CustomBtn";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setToken } from "~/slices/navSlice";
+import { setToken, setUserInfo } from "~/slices/navSlice";
 import request from "~utils/request";
 import Loading from "~components/Loading";
 
@@ -34,16 +34,32 @@ const SignIn = () => {
     };
   }, []);
 
+  const getUserInfo = async (token) => {
+    const headers = {
+      Authorization: "Bearer " + token,
+    };
+    await request
+      .get("get-infor", { headers: headers })
+      .then(function (res) {
+        dispatch(setUserInfo(res.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const handleConfirm = async () => {
     setLoading(true);
-    const objLogin = {
-      email: phone,
+    const obj = {
+      phone: phone,
       password: password,
     };
     await request
-      .post("login", objLogin)
+      .post("login", obj)
       .then(function (res) {
-        dispatch(setToken(res.data.token));
+        const token = res.data.token;
+        dispatch(setToken(token));
+        getUserInfo(token);
         navigation.reset({
           index: 0,
           routes: [{ name: "MainScreen" }],

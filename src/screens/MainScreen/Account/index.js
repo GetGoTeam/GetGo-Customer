@@ -5,14 +5,15 @@ import { faChevronRight, faLock, faUser, faRightFromBracket } from "@fortawesome
 import { colors, text } from "~utils/colors.js";
 import { useState } from "react";
 import ToolItem from "~components/ToolItem";
-import { useDispatch } from "react-redux";
-import { setToken } from "~/slices/navSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setToken, selectUserInfo, setUserInfo } from "~/slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 
 const Account = () => {
   const [vip, setVip] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const userInfo = useSelector(selectUserInfo);
 
   const handleLogout = () => {
     Alert.alert("Đăng xuất", "Bạn có chắc muốn đăng xuất khỏi tài khoản này?", [
@@ -24,6 +25,7 @@ const Account = () => {
         text: "Đồng ý",
         onPress: () => {
           dispatch(setToken(null));
+          dispatch(setUserInfo(null));
           navigation.reset({
             index: 0,
             routes: [{ name: "SignIn" }],
@@ -39,7 +41,7 @@ const Account = () => {
         <View style={styles.personalInfo}>
           <Image style={styles.avatar} source={require("~assets/no-avatar.png")} />
           <View style={styles.usernameContainer}>
-            <Text style={styles.username}>Nguyễn Văn A</Text>
+            <Text style={styles.username}>{userInfo && userInfo.username}</Text>
             {vip ? (
               <TouchableOpacity onPress={() => setVip(!vip)}>
                 <View style={styles.vipContainer}>

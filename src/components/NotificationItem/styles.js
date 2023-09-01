@@ -13,17 +13,20 @@ const styles = EStyleSheet.create({
   title_container: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
   },
   title: {
     fontSize: "1rem",
     fontWeight: 500,
     color: text.color_800,
-    marginLeft: "1rem",
   },
   time: {
     fontSize: "0.8rem",
     fontWeight: 500,
     color: text.color_400,
+  },
+  titleTime_container: {
+    marginLeft: "1rem",
   },
 });
 

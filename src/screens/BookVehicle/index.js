@@ -285,6 +285,8 @@ const BookVehicle = () => {
                   setVehicleChoose={setVehicleChoose}
                   distanceMotocycle={distanceMotocycle}
                   distanceCar={distanceCar}
+                  origin={origin}
+                  setLoading={setLoading}
                 />
               ) : (
                 <ChooseeMethod

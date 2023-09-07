@@ -18,7 +18,7 @@ const styles = EStyleSheet.create({
     height: "100%",
   },
   title: {
-    marginLeft: "1rem",
+    marginLeft: "0.75rem",
     fontSize: "1.2rem",
     fontWeight: "bold",
     color: text.color_800,
@@ -27,6 +27,7 @@ const styles = EStyleSheet.create({
     fontSize: "1.2rem",
     fontWeight: "bold",
     color: text.color_800,
+    marginRight: "0.5rem",
   },
   icon: {
     height: 50,
@@ -35,14 +36,9 @@ const styles = EStyleSheet.create({
   },
   priceContainer: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    justifyContent: "center",
-  },
-  surcharge: {
-    fontSize: "0.7rem",
-    fontWeight: 400,
-    color: text.color_500,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
 });
 

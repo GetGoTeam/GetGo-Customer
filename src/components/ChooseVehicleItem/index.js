@@ -1,6 +1,8 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
-import { colors } from "~utils/colors.js";
+import { colors, text } from "~utils/colors.js";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 function numberWithCommas(x) {
   if (!x) return 0;
@@ -11,7 +13,7 @@ function numberWithCommas(x) {
 }
 
 const ChooseVehicleItem = (props) => {
-  const { icon, title, price, active, surcharge } = props;
+  const { icon, title, price, active, surcharge, surchargeReason } = props;
 
   return (
     <View style={[styles.container, { backgroundColor: active ? colors.primary_100 : colors.primary_50 }]}>
@@ -21,7 +23,16 @@ const ChooseVehicleItem = (props) => {
       </View>
       <View style={styles.priceContainer}>
         <Text style={styles.price}>{numberWithCommas(price)}₫</Text>
-        <Text style={styles.surcharge}>&#40;phụ thu {numberWithCommas(surcharge)}₫&#41;</Text>
+        <TouchableOpacity
+          onPress={() =>
+            Alert.alert(
+              "Phụ thu",
+              (surcharge === 0 ? surchargeReason : surchargeReason + ` ${numberWithCommas(surcharge)}₫`) + "."
+            )
+          }
+        >
+          <FontAwesomeIcon icon={faCircleInfo} size={20} color={text.color_600} />
+        </TouchableOpacity>
       </View>
     </View>
   );

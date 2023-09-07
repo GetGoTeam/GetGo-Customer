@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { selectVehicleType, setVehicleType } from "~/slices/navSlice";
 import { useSelector } from "react-redux";
 import { request } from "~utils/request";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 const roundNumber = (n) => {
   if (n === 0) return 0;
@@ -24,6 +25,7 @@ const ChooseVehicle = (props) => {
   const [car4Surcharge, setCar4Surcharge] = useState(0);
   const [car7Price, setCar7Price] = useState(0);
   const [car7Surcharge, setCar7Surcharge] = useState(0);
+  const [surchargeReason, setSurchargeReason] = useState();
 
   useEffect(() => {
     (async () => {
@@ -42,6 +44,7 @@ const ChooseVehicle = (props) => {
               const tripCost = res.data.tripCost;
               setMotorcyclePrice(tripCost.totalCost);
               setMotorcycleSurcharge(tripCost.surcharge);
+              setSurchargeReason(tripCost.reason);
             })
             .catch(function (error) {
               console.log("Calculate trip price by motorcycle error: ", error);
@@ -57,6 +60,7 @@ const ChooseVehicle = (props) => {
             .then(function (res) {
               const tripCost = res.data.tripCost;
               setCar4Price(tripCost.totalCost);
+              setCar4Surcharge(tripCost.surcharge);
             })
             .catch(function (error) {
               console.log("Calculate trip price by car4 error: ", error);
@@ -72,6 +76,7 @@ const ChooseVehicle = (props) => {
             .then(function (res) {
               const tripCost = res.data.tripCost;
               setCar7Price(tripCost.totalCost);
+              setCar7Surcharge(tripCost.surcharge);
             })
             .catch(function (error) {
               console.log("Calculate trip price by car7 error: ", error);
@@ -129,6 +134,7 @@ const ChooseVehicle = (props) => {
                 icon={item.icon}
                 price={item.price}
                 surcharge={item.surcharge}
+                surchargeReason={surchargeReason}
                 active={chooseIndex === index ? true : false}
               />
               <View style={styles.divLine} />

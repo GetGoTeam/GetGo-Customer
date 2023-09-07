@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { selectVehicleType, setVehicleType } from "~/slices/navSlice";
 import { useSelector } from "react-redux";
-import Loading from "~components/Loading";
 import { request } from "~utils/request";
 
 const roundNumber = (n) => {
+  if (n === 0) return 0;
   return Math.round(n / 1000) * 1000 + 1000;
 };
 
@@ -19,8 +19,11 @@ const ChooseVehicle = (props) => {
   const { setVehicleChoose, distanceMotocycle, distanceCar, origin, setLoading } = props;
   const [loadingPrice, setLoadingPrice] = useState(false);
   const [motorcyclePrice, setMotorcyclePrice] = useState(0);
+  const [motorcycleSurcharge, setMotorcycleSurcharge] = useState(0);
   const [car4Price, setCar4Price] = useState(0);
+  const [car4Surcharge, setCar4Surcharge] = useState(0);
   const [car7Price, setCar7Price] = useState(0);
+  const [car7Surcharge, setCar7Surcharge] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -36,7 +39,9 @@ const ChooseVehicle = (props) => {
               mode: 1,
             })
             .then(function (res) {
-              setMotorcyclePrice(res.data.totalPrice);
+              const tripCost = res.data.tripCost;
+              setMotorcyclePrice(tripCost.totalCost);
+              setMotorcycleSurcharge(tripCost.surcharge);
             })
             .catch(function (error) {
               console.log("Calculate trip price by motorcycle error: ", error);
@@ -50,7 +55,8 @@ const ChooseVehicle = (props) => {
               mode: 4,
             })
             .then(function (res) {
-              setCar4Price(res.data.totalPrice);
+              const tripCost = res.data.tripCost;
+              setCar4Price(tripCost.totalCost);
             })
             .catch(function (error) {
               console.log("Calculate trip price by car4 error: ", error);
@@ -64,7 +70,8 @@ const ChooseVehicle = (props) => {
               mode: 7,
             })
             .then(function (res) {
-              setCar7Price(res.data.totalPrice);
+              const tripCost = res.data.tripCost;
+              setCar7Price(tripCost.totalCost);
             })
             .catch(function (error) {
               console.log("Calculate trip price by car7 error: ", error);
@@ -82,18 +89,21 @@ const ChooseVehicle = (props) => {
       title: "Xe máy",
       icon: require("~assets/motorcycle.png"),
       price: roundNumber(motorcyclePrice),
+      surcharge: roundNumber(motorcycleSurcharge),
       type: "motorcycle",
     },
     {
       title: "Xe hơi 4 chỗ",
       icon: require("~assets/car.png"),
       price: roundNumber(car4Price),
+      surcharge: roundNumber(car4Surcharge),
       type: "car4",
     },
     {
       title: "Xe hơi 7 chỗ",
       icon: require("~assets/car.png"),
       price: roundNumber(car7Price),
+      surcharge: roundNumber(car7Surcharge),
       type: "car7",
     },
   ];
@@ -118,6 +128,7 @@ const ChooseVehicle = (props) => {
                 title={item.title}
                 icon={item.icon}
                 price={item.price}
+                surcharge={item.surcharge}
                 active={chooseIndex === index ? true : false}
               />
               <View style={styles.divLine} />

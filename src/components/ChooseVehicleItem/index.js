@@ -11,7 +11,7 @@ function numberWithCommas(x) {
 }
 
 const ChooseVehicleItem = (props) => {
-  const { icon, title, price, active } = props;
+  const { icon, title, price, active, surcharge } = props;
 
   return (
     <View style={[styles.container, { backgroundColor: active ? colors.primary_100 : colors.primary_50 }]}>
@@ -19,7 +19,10 @@ const ChooseVehicleItem = (props) => {
         <Image source={icon} style={styles.icon} />
         <Text style={styles.title}>{title}</Text>
       </View>
-      <Text style={styles.price}>{numberWithCommas(price)}₫</Text>
+      <View style={styles.priceContainer}>
+        <Text style={styles.price}>{numberWithCommas(price)}₫</Text>
+        <Text style={styles.surcharge}>&#40;phụ thu {numberWithCommas(surcharge)}₫&#41;</Text>
+      </View>
     </View>
   );
 };

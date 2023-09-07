@@ -26,7 +26,8 @@ import { GOONG_APIKEY } from "@env";
 import Loading from "~components/Loading";
 import { Parallelogram } from "~components/Shape";
 import { colors } from "~utils/colors";
-import request from "~utils/request";
+import { request, baseURL } from "~utils/request";
+import io from "socket.io-client";
 
 const BookVehicle = () => {
   const navigation = useNavigation();
@@ -40,6 +41,7 @@ const BookVehicle = () => {
   const destinationAddress = useSelector(selectDestinationAddress);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [loadingMap, setLoadingMap] = useState(false);
   const [polylineMotocycle, setPolylineMotocycle] = useState();
   const [distanceMotocycle, setDistanceMotocycle] = useState();
   const [polylineCar, setPolylineCar] = useState();
@@ -47,6 +49,9 @@ const BookVehicle = () => {
   const [vehiclechoose, setVehicleChoose] = useState(vehicleType);
   const token = useSelector(selectToken);
   const userInfo = useSelector(selectUserInfo);
+  const socket = io(`${baseURL}:3014`);
+  const [tripId, setTripId] = useState();
+  const [driverId, setDriverId] = useState();
 
   const headers = {
     Authorization: "Bearer " + token,
@@ -56,6 +61,7 @@ const BookVehicle = () => {
     (async () => {
       try {
         setLoading(true);
+        setLoadingMap(true);
         const polylineMotocycleTmp = await getPolyline(
           origin.latitude,
           origin.longitude,
@@ -79,6 +85,7 @@ const BookVehicle = () => {
         console.error(error);
       } finally {
         setLoading(false);
+        setLoadingMap(false);
       }
     })();
   }, []);
@@ -97,20 +104,40 @@ const BookVehicle = () => {
           };
         });
         const distance = data.routes[0].legs[0].distance.value;
-        return { distance: distance, polyline: polyline };
+        return {
+          distance: distance,
+          polyline: polyline,
+        };
       } else {
-        console.error("No results found.");
+        console.error("getPolyline No results found.");
         return null;
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("getPolyline Error:", error);
       throw error;
     }
   };
 
+  useEffect(() => {
+    if (tripId) {
+      socket.on(tripId, (data) => {
+        console.log("Accept trip data:", data);
+        if (data.msg === "Accept trip successfully!") {
+          setDriverId(data.content.driver);
+          setConfirmBtnTitle("Hủy chuyến");
+          setContent("DriverIsComing");
+        }
+      });
+    } else socket.off(tripId);
+
+    return () => {
+      socket.off(tripId);
+    };
+  }, [tripId]);
+
   const handleBookNow = async () => {
     setLoading(true);
-    const obj = {
+    const body = {
       phone: userInfo.phone,
       address_pickup: originAddress,
       lat_pickup: origin.latitude,
@@ -121,13 +148,38 @@ const BookVehicle = () => {
       vehicleType: vehiclechoose === "motorcycle" ? 1 : vehiclechoose === "car4" ? 4 : 7,
     };
     await request
-      .post("create-trip", obj, { headers: headers })
+      .post("create-trip", body, {
+        headers: headers,
+      })
       .then(function (res) {
+        console.log("Create trip data", res.data);
+        setTripId(res.data.elements._id);
         setConfirmBtnTitle("Hủy tìm kiếm");
         setContent("FindingDriver");
       })
       .catch(function (error) {
         console.log(error);
+      })
+      .then(function () {
+        setLoading(false);
+      });
+  };
+
+  const handlecancelTrip = async () => {
+    setLoading(true);
+    await request
+      .patch(
+        `cancel-trip/${tripId}`,
+        {},
+        {
+          headers: headers,
+        }
+      )
+      .then(function (res) {
+        console.log("Cancel trip successfully!", tripId);
+      })
+      .catch(function (error) {
+        console.log("Cancel trip error: ", error);
       })
       .then(function () {
         setLoading(false);
@@ -140,9 +192,11 @@ const BookVehicle = () => {
       setContent("BookNow");
     } else if (content === "BookNow") {
       handleBookNow();
-    } else if (content === "FindingDriver") {
+    } else if (content === "FindingDriver" || content === "DriverIsComing") {
       setConfirmBtnTitle("Đặt xe");
       setContent("BookNow");
+      handlecancelTrip();
+      setDriverId();
     } else if (content === "Scheduling") {
       if (!travelTime) Alert.alert("Lỗi", "Vui lòng chọn thời gian đặt xe.");
       else if (string2Date(travelTime) <= new Date()) Alert.alert("Lỗi", "Thời gian đặt xe không hợp lệ!");
@@ -186,7 +240,7 @@ const BookVehicle = () => {
   return (
     <View style={styles.container}>
       <View style={styles.map}>
-        {!loading && <GoogleMap polyline={vehiclechoose === "motorcycle" ? polylineMotocycle : polylineCar} />}
+        {!loadingMap && <GoogleMap polyline={vehiclechoose === "motorcycle" ? polylineMotocycle : polylineCar} />}
       </View>
       <View style={styles.backBtn}>
         <TouchableOpacity
@@ -210,7 +264,10 @@ const BookVehicle = () => {
           }
           h={25}
           label={((vehiclechoose === "motorcycle" ? distanceMotocycle : distanceCar) / 1000).toFixed(1) + " km"}
-          labelStyle={{ color: "white", fontSize: 12 }}
+          labelStyle={{
+            color: "white",
+            fontSize: 12,
+          }}
         />
       </View>
 
@@ -219,21 +276,26 @@ const BookVehicle = () => {
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {content === "ChooseVehicle" ? (
-            <ChooseVehicle
-              setVehicleChoose={setVehicleChoose}
-              distanceMotocycle={distanceMotocycle}
-              distanceCar={distanceCar}
-            />
+          {driverId ? (
+            <DriverInfo />
           ) : (
-            <ChooseeMethod
-              setConfirmBtnTitle={setConfirmBtnTitle}
-              vehicleType={vehicleType}
-              content={content}
-              setContent={setContent}
-            />
+            <>
+              {content === "ChooseVehicle" ? (
+                <ChooseVehicle
+                  setVehicleChoose={setVehicleChoose}
+                  distanceMotocycle={distanceMotocycle}
+                  distanceCar={distanceCar}
+                />
+              ) : (
+                <ChooseeMethod
+                  setConfirmBtnTitle={setConfirmBtnTitle}
+                  vehicleType={vehicleType}
+                  content={content}
+                  setContent={setContent}
+                />
+              )}
+            </>
           )}
-          {/* <DriverInfo /> */}
 
           <View style={styles.confirmBtn}>
             <TouchableOpacity onPress={handleConfirm}>

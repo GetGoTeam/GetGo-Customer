@@ -1,5 +1,6 @@
 import axios from "axios";
 
-const request = axios.create({ baseURL: "http://192.168.1.6:3001/api/customers/" });
+const baseURL = "http://192.168.1.6";
+const request = axios.create({ baseURL: `${baseURL}:3001/api/customers/` });
 
-export default request;
+export { request, baseURL };

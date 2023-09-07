@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setToken, setUserInfo } from "~/slices/navSlice";
-import request from "~utils/request";
+import { request } from "~utils/request";
 import Loading from "~components/Loading";
 
 const SignIn = () => {

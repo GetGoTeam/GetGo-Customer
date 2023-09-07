@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "~components/Loading";
-import request from "~utils/request";
+import { request } from "~utils/request";
 
 const SignUp = () => {
   const navigation = useNavigation();

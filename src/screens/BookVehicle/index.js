@@ -299,6 +299,8 @@ const BookVehicle = () => {
             </>
           )}
 
+          {/* <DriverInfo /> */}
+
           <View style={styles.confirmBtn}>
             <TouchableOpacity onPress={handleConfirm}>
               <CustomBtn title={confirmBtnTitle} />

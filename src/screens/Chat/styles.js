@@ -82,13 +82,24 @@ const styles = EStyleSheet.create({
   chat_input: {
     flex: 1,
     paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingLeft: 15,
+    paddingRight: 30,
     fontSize: "1rem",
     borderRadius: 100,
     backgroundColor: "#fafafa",
     borderWidth: 1,
     borderColor: text.color_300,
     marginRight: 15,
+  },
+  chat_input_container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loading: {
+    position: "absolute",
+    right: 30,
   },
 });
 

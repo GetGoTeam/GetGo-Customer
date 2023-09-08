@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { selectVehicleType, setVehicleType } from "~/slices/navSlice";
 import { useSelector } from "react-redux";
 import { request } from "~utils/request";
-import Tooltip from "react-native-walkthrough-tooltip";
 
 const roundNumber = (n) => {
   if (n === 0) return 0;

@@ -101,7 +101,7 @@ const Feedback = () => {
           </View>
         </>
       )}
-      <View style={[styles.TextInputContainer, isKeyboardVisible && { marginTop: 70, height: 300 }]}>
+      <View style={[styles.TextInputContainer, isKeyboardVisible && styles.TextInputContainerStretch]}>
         <TextInput
           editable
           multiline

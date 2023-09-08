@@ -85,6 +85,10 @@ const styles = EStyleSheet.create({
     position: "absolute",
     bottom: "2rem",
   },
+  TextInputContainerStretch: {
+    marginVertical: "5rem",
+    flex: 1,
+  },
 });
 
 export default styles;

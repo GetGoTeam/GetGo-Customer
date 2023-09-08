@@ -6,13 +6,20 @@ import { colors } from "~utils/colors.js";
 import SearchBar from "~components/SearchBar";
 import { useNavigation } from "@react-navigation/native";
 
-const DriverInfo = () => {
+const DriverInfo = (props) => {
   const navigation = useNavigation();
+  const { originAddress } = props;
+
+  const getShortedAddress = (address) => {
+    if (!address) return "N/A";
+    const firstCommaIndex = address.indexOf(",");
+    return address.substring(0, firstCommaIndex);
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.notification}>Tài xế sắp đến</Text>
-      <Text style={styles.begin}>227 Nguyễn Văn Cừ</Text>
+      <Text style={styles.begin}>{getShortedAddress(originAddress)}</Text>
       <View style={styles.divLine} />
       <View style={styles.driverInfoContainer}>
         <View style={styles.personalInfoContainer}>

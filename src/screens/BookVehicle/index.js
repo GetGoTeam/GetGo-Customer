@@ -195,11 +195,27 @@ const BookVehicle = () => {
       setContent("BookNow");
     } else if (content === "BookNow") {
       handleBookNow();
-    } else if (content === "FindingDriver" || content === "DriverIsComing") {
+    } else if (content === "FindingDriver") {
       setConfirmBtnTitle("Đặt xe");
       setContent("BookNow");
       handlecancelTrip();
       setDriverId();
+    } else if (content === "DriverIsComing") {
+      Alert.alert("Hủy chuyến", "Bạn có chắc muốn hủy chuyến?", [
+        {
+          text: "Hủy",
+          style: "cancel",
+        },
+        {
+          text: "Đồng ý",
+          onPress: () => {
+            setConfirmBtnTitle("Đặt xe");
+            setContent("BookNow");
+            handlecancelTrip();
+            setDriverId();
+          },
+        },
+      ]);
     } else if (content === "Scheduling") {
       if (!travelTime) Alert.alert("Lỗi", "Vui lòng chọn thời gian đặt xe.");
       else if (string2Date(travelTime) <= new Date()) Alert.alert("Lỗi", "Thời gian đặt xe không hợp lệ!");
@@ -280,7 +296,7 @@ const BookVehicle = () => {
         </View>
         <View style={styles.content}>
           {driverId ? (
-            <DriverInfo />
+            <DriverInfo originAddress={originAddress} />
           ) : (
             <>
               {content === "ChooseVehicle" ? (
@@ -302,7 +318,7 @@ const BookVehicle = () => {
             </>
           )}
 
-          {/* <DriverInfo /> */}
+          {/* <DriverInfo originAddress={originAddress} /> */}
 
           <View style={styles.confirmBtn}>
             <TouchableOpacity onPress={handleConfirm}>

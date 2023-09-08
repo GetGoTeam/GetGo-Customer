@@ -16,7 +16,7 @@ import Loading from "~components/Loading";
 const Feedback = () => {
   const navigation = useNavigation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState(5);
   const [feedback, setFeedback] = useState();
   const [loading, setLoading] = useState(false);
   const token = useSelector(selectToken);
@@ -24,8 +24,8 @@ const Feedback = () => {
     Authorization: "Bearer " + token,
   };
   const trip = useSelector(selectTrip);
-  // const driverId = useSelector(selectDriver);
-  const driverId = "64f9820a37f9084f94624c15";
+  const driverId = useSelector(selectDriver);
+  // const driverId = "64f9820a37f9084f94624c15";
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -45,7 +45,7 @@ const Feedback = () => {
   const handleConfirm = async () => {
     setLoading(true);
     const body = {
-      content: feedback,
+      content: feedback ? feedback : "Không có nội dung",
       rating: rating,
       driver: driverId,
       trip: trip,

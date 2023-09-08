@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, Keyboard, TextInput } from "react-native";
+import { Text, View, TouchableOpacity, Image, Keyboard, TextInput, Alert } from "react-native";
 import Checkbox from "expo-checkbox";
 import styles from "./styles";
 import { colors, text } from "~utils/colors.js";
@@ -7,11 +7,23 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { selectToken, selectTrip, selectDriver } from "~/slices/navSlice";
+import { request } from "~utils/request";
+import Loading from "~components/Loading";
 
 const Report = () => {
   const navigation = useNavigation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [feedback, setFeedback] = useState();
+  const [loading, setLoading] = useState(false);
+  const token = useSelector(selectToken);
+  const headers = {
+    Authorization: "Bearer " + token,
+  };
+  const trip = useSelector(selectTrip);
+  const driverId = useSelector(selectDriver);
+  // const driverId = "64f9820a37f9084f94624c15";
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -61,6 +73,36 @@ const Report = () => {
     setCheckboxData(updatedCheckboxData);
   };
 
+  const handleConfirm = async () => {
+    setLoading(true);
+    const reasons = checkboxData
+      .filter((element) => element.isChecked)
+      .map((element) => {
+        return element.label;
+      });
+    const body = {
+      content: feedback ? feedback : "Không có nội dung",
+      reasons: reasons,
+      driver: driverId,
+      trip: trip,
+    };
+    await request
+      .post("create-report", body, {
+        headers: headers,
+      })
+      .then(function (res) {
+        console.log("Create report successfully!");
+        Alert.alert("Thông báo", "Gửi báo cáo thành công.");
+        navigation.goBack();
+      })
+      .catch(function (error) {
+        console.log("Create report error: ", error);
+      })
+      .then(function () {
+        setLoading(false);
+      });
+  };
+
   return (
     <View style={styles.container}>
       {!isKeyboardVisible && (
@@ -104,10 +146,11 @@ const Report = () => {
         />
       </View>
       {!isKeyboardVisible && (
-        <TouchableOpacity style={styles.confirm}>
+        <TouchableOpacity style={styles.confirm} onPress={handleConfirm}>
           <CustomBtn title="Gửi báo cáo" />
         </TouchableOpacity>
       )}
+      <Loading loading={loading} />
     </View>
   );
 };

@@ -15,6 +15,7 @@ import {
   selectTravelTime,
   setTravelTime,
   setDriver,
+  setTrip,
   selectOrigin,
   selectDestination,
   selectToken,
@@ -162,6 +163,7 @@ const BookVehicle = () => {
       .then(function (res) {
         console.log("Create trip data", res.data);
         setTripId(res.data.elements._id);
+        dispatch(setTrip(res.data.elements._id));
         setConfirmBtnTitle("Hủy tìm kiếm");
         setContent("FindingDriver");
       })

@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, Keyboard, TextInput } from "react-native";
+import { Text, View, TouchableOpacity, Image, Keyboard, TextInput, Alert } from "react-native";
 import styles from "./styles";
 // import { TextInput } from "@react-native-material/core";
 import { colors, text } from "~utils/colors.js";
@@ -8,12 +8,24 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faXmark, faFlag } from "@fortawesome/free-solid-svg-icons";
 import RatingBar from "~components/RatingBar";
+import { useSelector } from "react-redux";
+import { selectToken, selectTrip, selectDriver } from "~/slices/navSlice";
+import { request } from "~utils/request";
+import Loading from "~components/Loading";
 
 const Feedback = () => {
   const navigation = useNavigation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [rating, setRating] = useState();
   const [feedback, setFeedback] = useState();
+  const [loading, setLoading] = useState(false);
+  const token = useSelector(selectToken);
+  const headers = {
+    Authorization: "Bearer " + token,
+  };
+  const trip = useSelector(selectTrip);
+  // const driverId = useSelector(selectDriver);
+  const driverId = "64f9820a37f9084f94624c15";
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -29,6 +41,34 @@ const Feedback = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  const handleConfirm = async () => {
+    setLoading(true);
+    const body = {
+      content: feedback,
+      rating: rating,
+      driver: driverId,
+      trip: trip,
+    };
+    await request
+      .post("create-feedback", body, {
+        headers: headers,
+      })
+      .then(function (res) {
+        console.log("Create feedback successfully!");
+        Alert.alert("Thông báo", "Gửi đánh giá thành công.");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "MainScreen" }],
+        });
+      })
+      .catch(function (error) {
+        console.log("Create feedback error: ", error);
+      })
+      .then(function () {
+        setLoading(false);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -73,10 +113,11 @@ const Feedback = () => {
         />
       </View>
       {!isKeyboardVisible && (
-        <TouchableOpacity style={styles.confirm}>
+        <TouchableOpacity style={styles.confirm} onPress={handleConfirm}>
           <CustomBtn title="Gửi đánh giá" />
         </TouchableOpacity>
       )}
+      <Loading loading={loading} />
     </View>
   );
 };

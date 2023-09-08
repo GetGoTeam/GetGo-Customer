@@ -55,7 +55,7 @@ const BookVehicle = () => {
   const userInfo = useSelector(selectUserInfo);
   const socket = io(`${baseURL}:3014`);
   const [tripId, setTripId] = useState();
-  const [driverId, setDriverId] = useState();
+  const [driverInfo, setDriverInfo] = useState();
 
   const headers = {
     Authorization: "Bearer " + token,
@@ -131,8 +131,8 @@ const BookVehicle = () => {
       socket.on(tripId, (data) => {
         console.log("Accept trip data:", data);
         if (data.msg === "Accept trip successfully!") {
-          setDriverId(data.content.driver);
-          dispatch(setDriver(data.content.driver));
+          setDriverInfo(data.content.driver);
+          dispatch(setDriver(data.content.driver.id));
           setConfirmBtnTitle("Hủy chuyến");
           setContent("DriverIsComing");
         }
@@ -207,7 +207,7 @@ const BookVehicle = () => {
       setConfirmBtnTitle("Đặt xe");
       setContent("BookNow");
       handlecancelTrip();
-      setDriverId();
+      setDriverInfo();
     } else if (content === "DriverIsComing") {
       Alert.alert("Hủy chuyến", "Bạn có chắc muốn hủy chuyến?", [
         {
@@ -220,7 +220,7 @@ const BookVehicle = () => {
             setConfirmBtnTitle("Đặt xe");
             setContent("BookNow");
             handlecancelTrip();
-            setDriverId();
+            setDriverInfo();
           },
         },
       ]);
@@ -313,8 +313,8 @@ const BookVehicle = () => {
           <View style={styles.pullBar} />
         </View>
         <View style={styles.content}>
-          {driverId ? (
-            <DriverInfo originAddress={originAddress} />
+          {driverInfo ? (
+            <DriverInfo originAddress={originAddress} driverInfo={driverInfo} />
           ) : (
             <>
               {content === "ChooseVehicle" ? (
@@ -335,8 +335,6 @@ const BookVehicle = () => {
               )}
             </>
           )}
-
-          {/* <DriverInfo originAddress={originAddress} /> */}
 
           <View style={styles.confirmBtn}>
             <TouchableOpacity onPress={handleConfirm}>

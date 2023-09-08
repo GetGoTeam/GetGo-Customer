@@ -1,14 +1,14 @@
 import { TouchableOpacity, View, Text, Image } from "react-native";
 import styles from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faStar, faMotorcycle, faComments, faSquarePhone } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faMotorcycle, faCarSide, faComments, faSquarePhone } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "~utils/colors.js";
 import SearchBar from "~components/SearchBar";
 import { useNavigation } from "@react-navigation/native";
 
 const DriverInfo = (props) => {
   const navigation = useNavigation();
-  const { originAddress } = props;
+  const { originAddress, driverInfo } = props;
 
   const getShortedAddress = (address) => {
     if (!address) return "N/A";
@@ -25,18 +25,28 @@ const DriverInfo = (props) => {
         <View style={styles.personalInfoContainer}>
           <Image style={styles.avatar} source={require("~assets/no-avatar.png")} />
           <View style={styles.nameRateContainer}>
-            <Text style={styles.name}>Nguyễn Văn A</Text>
+            <Text style={styles.name}>{driverInfo.username}</Text>
             <View style={styles.rateContainer}>
-              <Text style={styles.rate}>4.9</Text>
+              <Text style={styles.rate}>{driverInfo.rated}</Text>
               <FontAwesomeIcon icon={faStar} size={13} color={"#FFCF00"} />
             </View>
           </View>
         </View>
         <View style={styles.vehicleInfoContainer}>
-          <Text style={styles.plate}>49F4-490.53</Text>
+          <Text style={styles.plate}>{driverInfo.vehicle.licensePlate}</Text>
           <View style={styles.vehicleNameContainer}>
-            <FontAwesomeIcon icon={faMotorcycle} size={18} color={colors.primary_300} />
-            <Text style={styles.vehicleName}>Yamaha - Sirius</Text>
+            <FontAwesomeIcon
+              icon={driverInfo.vehicle.capacity === 1 ? faMotorcycle : faCarSide}
+              size={18}
+              color={colors.primary_300}
+            />
+            <Text style={styles.vehicleName}>
+              {driverInfo.vehicle.capacity === 1
+                ? "Yamaha - Sirius"
+                : driverInfo.vehicle.capacity === 4
+                ? "Toyota - Vios"
+                : "Mitsubishi - Xpander"}
+            </Text>
           </View>
         </View>
       </View>

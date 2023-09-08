@@ -83,7 +83,7 @@ const styles = EStyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     paddingLeft: 15,
-    paddingRight: 30,
+    paddingRight: 40,
     fontSize: "1rem",
     borderRadius: 100,
     backgroundColor: "#fafafa",

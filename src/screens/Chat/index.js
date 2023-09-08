@@ -1,4 +1,4 @@
-import { View, Image, Text, ScrollView, TextInput, TouchableOpacity, Keyboard, ActivityIndicator } from "react-native";
+import { View, Image, Text, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useRef, useEffect, useState } from "react";
 import { faChevronLeft, faPaperPlane, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -23,27 +23,8 @@ export default () => {
   const [textInput, setTextInput] = useState();
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
+  const [gettingMsg, setGettingMsg] = useState(false);
   const driverId = "64f9820a37f9084f94624c15";
-
-  useEffect(() => {
-    Keyboard.addListener("keyboardDidShow", () => {
-      scrollToBottom();
-    });
-  }, []);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatBuffers]);
-
-  useEffect(() => {
-    setTimeout(function () {
-      scrollToBottom();
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    if (!loading) scrollToBottom();
-  }, [loading]);
 
   const scrollToBottom = () => {
     scrollViewRef.current?.scrollToEnd({ animated: true });
@@ -58,26 +39,26 @@ export default () => {
   }, []);
 
   useEffect(() => {
+    setGettingMsg(true);
     try {
       socketServcies.on(`message_${userInfo._id}_${driverId}`, (msg) => {
-        const tmp = [...chatBuffers, msg.content];
-        // console.log(tmp);
-        setChatBuffers(tmp);
+        setChatBuffers((chatBuffers) => [...chatBuffers, msg.content]);
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setGettingMsg(false);
     }
   }, []);
 
   useEffect(() => {
+    if (gettingMsg) return;
     (async () => {
       setLoading(true);
       await request
         .get(`get-messages-driver/${driverId}`, { headers: headers })
         .then((response) => {
-          // console.log("Chat data: ", response.data);
           setChatBuffers(response.data);
-          // scrollToBottom();
         })
         .catch((err) => {
           console.log(err);
@@ -136,7 +117,12 @@ export default () => {
           <FontAwesomeIcon icon={faPhone} size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.mess_container} ref={scrollViewRef}>
+      <ScrollView
+        style={styles.mess_container}
+        ref={scrollViewRef}
+        onContentSizeChange={() => scrollToBottom()}
+        onLayout={() => scrollToBottom()}
+      >
         {chatBuffers.map((item, index) => (
           <View key={index}>
             <View style={item.customer_receive ? styles.mess_receive : styles.mess_send}>

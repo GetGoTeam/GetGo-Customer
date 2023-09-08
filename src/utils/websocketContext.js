@@ -16,13 +16,13 @@ class WSService {
       // console.log("initializing socket", this.socket);
 
       this.socket.on("connect", (data) => {
-        console.log("=== socket connected ====");
+        // console.log("=== socket connected ====");
         this.connected = true; // Socket đã kết nối
       });
 
       this.socket.on("disconnect", (data) => {
         this.connected = false; // Socket đã ngắt kết nối
-        console.log("=== socket disconnected ====");
+        // console.log("=== socket disconnected ====");
       });
 
       this.socket.on("error", (data) => {

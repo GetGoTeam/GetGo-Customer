@@ -9,6 +9,7 @@ const initialState = {
   travelTime: null,
   token: null,
   userInfo: null,
+  driver: null,
 };
 
 export const navSlice = createSlice({
@@ -39,6 +40,9 @@ export const navSlice = createSlice({
     setUserInfo: (state, action) => {
       state.userInfo = action.payload;
     },
+    setDriver: (state, action) => {
+      state.driver = action.payload;
+    },
   },
 });
 
@@ -51,6 +55,7 @@ export const {
   setTravelTime,
   setToken,
   setUserInfo,
+  setDriver,
 } = navSlice.actions;
 
 // Selectors
@@ -62,5 +67,6 @@ export const selectVehicleType = (state) => state.nav.vehicleType;
 export const selectTravelTime = (state) => state.nav.travelTime;
 export const selectToken = (state) => state.nav.token;
 export const selectUserInfo = (state) => state.nav.userInfo;
+export const selectDriver = (state) => state.nav.driver;
 
 export default navSlice.reducer;

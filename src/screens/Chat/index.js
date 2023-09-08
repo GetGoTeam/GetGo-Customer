@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
 import socketServcies from "~utils/websocketContext";
 import { useSelector } from "react-redux";
-import { selectToken, selectUserInfo } from "~/slices/navSlice";
+import { selectToken, selectUserInfo, selectDriver } from "~/slices/navSlice";
 import { request } from "~utils/request";
 import Loading from "~components/Loading";
 
@@ -24,7 +24,8 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [gettingMsg, setGettingMsg] = useState(false);
-  const driverId = "64f9820a37f9084f94624c15";
+  // const driverId = "64f9820a37f9084f94624c15";
+  const driverId = useSelector(selectDriver);
 
   const scrollToBottom = () => {
     scrollViewRef.current?.scrollToEnd({ animated: true });

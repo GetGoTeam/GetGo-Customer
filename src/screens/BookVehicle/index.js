@@ -14,6 +14,7 @@ import {
   selectVehicleType,
   selectTravelTime,
   setTravelTime,
+  setDriver,
   selectOrigin,
   selectDestination,
   selectToken,
@@ -124,6 +125,7 @@ const BookVehicle = () => {
         console.log("Accept trip data:", data);
         if (data.msg === "Accept trip successfully!") {
           setDriverId(data.content.driver);
+          dispatch(setDriver(data.content.driver));
           setConfirmBtnTitle("Hủy chuyến");
           setContent("DriverIsComing");
         }
@@ -177,6 +179,7 @@ const BookVehicle = () => {
       )
       .then(function (res) {
         console.log("Cancel trip successfully!", tripId);
+        dispatch(setDriver(null));
       })
       .catch(function (error) {
         console.log("Cancel trip error: ", error);

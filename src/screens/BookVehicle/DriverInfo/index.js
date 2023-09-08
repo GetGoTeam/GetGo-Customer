@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const DriverInfo = (props) => {
   const navigation = useNavigation();
-  const { originAddress, driverInfo } = props;
+  const { originAddress, driverInfo, notification } = props;
 
   const getShortedAddress = (address) => {
     if (!address) return "N/A";
@@ -18,8 +18,8 @@ const DriverInfo = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.notification}>Tài xế sắp đến</Text>
-      <Text style={styles.begin}>{getShortedAddress(originAddress)}</Text>
+      <Text style={styles.notification}>{notification}</Text>
+      {originAddress && <Text style={styles.begin}>{getShortedAddress(originAddress)}</Text>}
       <View style={styles.divLine} />
       <View style={styles.driverInfoContainer}>
         <View style={styles.personalInfoContainer}>

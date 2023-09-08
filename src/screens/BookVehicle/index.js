@@ -129,12 +129,21 @@ const BookVehicle = () => {
   useEffect(() => {
     if (tripId) {
       socket.on(tripId, (data) => {
-        console.log("Accept trip data:", data);
-        if (data.msg === "Accept trip successfully!") {
+        if (data.content.status === "Pending") {
+          console.log("Accept trip data:", data);
           setDriverInfo(data.content.driver);
           dispatch(setDriver(data.content.driver.id));
           setConfirmBtnTitle("Hủy chuyến");
           setContent("DriverIsComing");
+        } else if (data.content.status === "Arriving") {
+          console.log("Arriving");
+          setContent("Arriving");
+        } else if (data.content.status === "Arrived") {
+          console.log("Arrived");
+          navigation.reset({
+            index: 1,
+            routes: [{ name: "MainScreen" }, { name: "Feedback" }],
+          });
         }
       });
     } else socket.off(tripId);
@@ -314,7 +323,11 @@ const BookVehicle = () => {
         </View>
         <View style={styles.content}>
           {driverInfo ? (
-            <DriverInfo originAddress={originAddress} driverInfo={driverInfo} />
+            <DriverInfo
+              originAddress={content === "Arriving" || content === "Arrived" ? "" : originAddress}
+              notification={content === "Arriving" || content === "Arrived" ? "Đang di chuyển" : "Tài xế sắp đến"}
+              driverInfo={driverInfo}
+            />
           ) : (
             <>
               {content === "ChooseVehicle" ? (
@@ -337,9 +350,13 @@ const BookVehicle = () => {
           )}
 
           <View style={styles.confirmBtn}>
-            <TouchableOpacity onPress={handleConfirm}>
-              <CustomBtn title={confirmBtnTitle} />
-            </TouchableOpacity>
+            {content === "Arriving" || content === "Arrived" ? (
+              <CustomBtn title={confirmBtnTitle} disable />
+            ) : (
+              <TouchableOpacity onPress={handleConfirm}>
+                <CustomBtn title={confirmBtnTitle} />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>

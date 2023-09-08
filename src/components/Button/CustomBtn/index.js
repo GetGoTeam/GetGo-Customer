@@ -1,12 +1,11 @@
 import { Text, View } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import styles from "./styles";
 
 function CustomBtn(props) {
-  const { title } = props;
+  const { title, disable, onPress } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { opacity: disable ? 0.5 : 1 }]}>
       <Text style={styles.title}>{title}</Text>
     </View>
   );

@@ -45,8 +45,10 @@ const BookVehicle = () => {
   const [loadingMap, setLoadingMap] = useState(false);
   const [polylineMotocycle, setPolylineMotocycle] = useState();
   const [distanceMotocycle, setDistanceMotocycle] = useState();
+  const [durationTxtMotocycle, setDurationTxtMotocycle] = useState();
   const [polylineCar, setPolylineCar] = useState();
   const [distanceCar, setDistanceCar] = useState();
+  const [durationTxtCar, setDurationTxtCar] = useState();
   const [vehiclechoose, setVehicleChoose] = useState(vehicleType);
   const token = useSelector(selectToken);
   const userInfo = useSelector(selectUserInfo);
@@ -72,6 +74,7 @@ const BookVehicle = () => {
         );
         setPolylineMotocycle(polylineMotocycleTmp.polyline);
         setDistanceMotocycle(polylineMotocycleTmp.distance);
+        setDurationTxtMotocycle(polylineMotocycleTmp.durationTxt);
 
         const polylineCarTmp = await getPolyline(
           origin.latitude,
@@ -82,6 +85,7 @@ const BookVehicle = () => {
         );
         setPolylineCar(polylineCarTmp.polyline);
         setDistanceCar(polylineCarTmp.distance);
+        setDurationTxtCar(polylineCarTmp.durationTxt);
       } catch (error) {
         console.error(error);
       } finally {
@@ -105,9 +109,11 @@ const BookVehicle = () => {
           };
         });
         const distance = data.routes[0].legs[0].distance.value;
+        const durationTxt = data.routes[0].legs[0].duration.text;
         return {
           distance: distance,
           polyline: polyline,
+          durationTxt: durationTxt,
         };
       } else {
         console.error("getPolyline No results found.");
@@ -275,7 +281,17 @@ const BookVehicle = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.distanceLabel}>
+      <TouchableOpacity
+        style={styles.distanceLabel}
+        onPress={() =>
+          Alert.alert(
+            "Chi tiết chuyến đi",
+            `Quãng đường: ${((vehiclechoose === "motorcycle" ? distanceMotocycle : distanceCar) / 1000).toFixed(
+              1
+            )} km.\nThời gian: ${vehiclechoose === "motorcycle" ? durationTxtMotocycle : durationTxtCar}.`
+          )
+        }
+      >
         <Parallelogram
           bgColor={`rgba(${hexToRgb(colors.primary_300)}, ${0.9})`}
           w={
@@ -288,7 +304,7 @@ const BookVehicle = () => {
             fontSize: 12,
           }}
         />
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.contentContainer}>
         <View style={styles.pullBarContainer}>

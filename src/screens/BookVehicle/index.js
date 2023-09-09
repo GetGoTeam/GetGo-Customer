@@ -132,7 +132,7 @@ const BookVehicle = () => {
         if (data.content.status === "Pending") {
           console.log("Accept trip data:", data);
           setDriverInfo(data.content.driver);
-          dispatch(setDriver(data.content.driver.id));
+          dispatch(setDriver(data.content.driver));
           setConfirmBtnTitle("Hủy chuyến");
           setContent("DriverIsComing");
         } else if (data.content.status === "Arriving") {

@@ -22,7 +22,7 @@ const Report = () => {
     Authorization: "Bearer " + token,
   };
   const trip = useSelector(selectTrip);
-  const driverId = useSelector(selectDriver);
+  const driverId = useSelector(selectDriver).id;
   // const driverId = "64f9820a37f9084f94624c15";
 
   useEffect(() => {

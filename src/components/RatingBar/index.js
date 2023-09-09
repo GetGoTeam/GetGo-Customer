@@ -6,7 +6,7 @@ import { faStar as blankStar } from "@fortawesome/free-regular-svg-icons";
 import { useEffect } from "react";
 
 const RatingBar = (props) => {
-  const { count = 5, defaultRating = count, rating, setRating, split = 15, starSize = 32 } = props;
+  const { count = 5, rating, setRating, defaultRating = rating, split = 15, starSize = 32 } = props;
 
   useEffect(() => {
     setRating(defaultRating > count ? count : defaultRating);

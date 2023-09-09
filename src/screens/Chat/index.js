@@ -24,8 +24,8 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [gettingMsg, setGettingMsg] = useState(false);
-  // const driverId = "64f9820a37f9084f94624c15";
-  const driverId = useSelector(selectDriver);
+  // const driver = "64f9820a37f9084f94624c15";
+  const driver = useSelector(selectDriver);
 
   const scrollToBottom = () => {
     scrollViewRef.current?.scrollToEnd({ animated: true });
@@ -42,7 +42,7 @@ export default () => {
   useEffect(() => {
     setGettingMsg(true);
     try {
-      socketServcies.on(`message_${userInfo._id}_${driverId}`, (msg) => {
+      socketServcies.on(`message_${userInfo._id}_${driver.id}`, (msg) => {
         setChatBuffers((chatBuffers) => [...chatBuffers, msg.content]);
       });
     } catch (error) {
@@ -57,7 +57,7 @@ export default () => {
     (async () => {
       setLoading(true);
       await request
-        .get(`get-messages-driver/${driverId}`, { headers: headers })
+        .get(`get-messages-driver/${driver.id}`, { headers: headers })
         .then((response) => {
           setChatBuffers(response.data);
         })
@@ -83,7 +83,7 @@ export default () => {
     if (!textInput) return;
     setSending(true);
     const body = {
-      driver_receive: driverId,
+      driver_receive: driver.id,
       content: textInput,
     };
     await request
@@ -111,7 +111,7 @@ export default () => {
           </TouchableOpacity>
           <View style={styles.heading_left_infor}>
             <Image style={styles.infor_image} source={require("~assets/no-avatar.png")} />
-            <Text style={styles.infor_text}>Nguyễn Văn A</Text>
+            <Text style={styles.infor_text}>{driver.username}</Text>
           </View>
         </View>
         <TouchableOpacity>

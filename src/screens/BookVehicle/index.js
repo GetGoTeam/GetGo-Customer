@@ -129,7 +129,7 @@ const BookVehicle = () => {
   useEffect(() => {
     if (tripId) {
       socket.on(tripId, (data) => {
-        if (data.content.status === "Pending") {
+        if (data.content.status === "Pending" || data.content.status === "Picking Up") {
           console.log("Accept trip data:", data);
           setDriverInfo(data.content.driver);
           dispatch(setDriver(data.content.driver));

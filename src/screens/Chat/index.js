@@ -40,6 +40,7 @@ export default () => {
   }, []);
 
   useEffect(() => {
+    if (sending) return;
     setGettingMsg(true);
     try {
       socketServcies.on(`message_${userInfo._id}_${driver.id}`, (msg) => {
@@ -145,9 +146,13 @@ export default () => {
             <ActivityIndicator color={colors.primary_300} animating hidesWhenStopped />
           </View>
         </View>
-        <TouchableOpacity onPress={handleSendMessage}>
-          <FontAwesomeIcon icon={faPaperPlane} size={24} color={colors.primary_300} />
-        </TouchableOpacity>
+        {textInput ? (
+          <TouchableOpacity onPress={handleSendMessage}>
+            <FontAwesomeIcon icon={faPaperPlane} size={24} color={colors.primary_300} />
+          </TouchableOpacity>
+        ) : (
+          <FontAwesomeIcon icon={faPaperPlane} size={24} color={text.color_400} />
+        )}
       </View>
       <Loading loading={loading} />
     </View>

@@ -24,6 +24,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [gettingMsg, setGettingMsg] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
   // const driver = "64f9820a37f9084f94624c15";
   const driver = useSelector(selectDriver);
 
@@ -32,35 +33,26 @@ export default () => {
   };
 
   useEffect(() => {
+    if (!firstRender) return;
     try {
+      console.log("init socket msg");
       socketServcies.initializeSocket("chatting");
     } catch (error) {
       console.log(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (sending) return;
-    setGettingMsg(true);
-    try {
-      socketServcies.on(`message_${userInfo._id}_${driver.id}`, (msg) => {
-        setChatBuffers((chatBuffers) => [...chatBuffers, msg.content]);
-      });
-    } catch (error) {
-      console.log(error);
     } finally {
-      setGettingMsg(false);
+      setFirstRender(false);
     }
   }, []);
 
   useEffect(() => {
-    if (gettingMsg) return;
     (async () => {
+      if (gettingMsg) return;
       setLoading(true);
       await request
         .get(`get-messages-driver/${driver.id}`, { headers: headers })
         .then((response) => {
           setChatBuffers(response.data);
+          console.log("loaded msg");
         })
         .catch((err) => {
           console.log(err);
@@ -94,6 +86,7 @@ export default () => {
       .then(function (res) {
         setTextInput();
         setChatBuffers((chatBuffers) => [...chatBuffers, res.data]);
+        console.log("sent msg");
       })
       .catch(function (error) {
         console.log("Send message error: ", error);
@@ -102,6 +95,23 @@ export default () => {
         setSending(false);
       });
   };
+
+  useEffect(() => {
+    if (sending) return;
+    setGettingMsg(true);
+    try {
+      socketServcies.on(`message_${userInfo._id}_${driver.id}`, (msg) => {
+        if (msg.content.customer_receive) {
+          setChatBuffers((chatBuffers) => [...chatBuffers, msg.content]);
+          console.log("received msg");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setGettingMsg(false);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -146,7 +156,7 @@ export default () => {
             <ActivityIndicator color={colors.primary_300} animating hidesWhenStopped />
           </View>
         </View>
-        {textInput ? (
+        {textInput && !sending ? (
           <TouchableOpacity onPress={handleSendMessage}>
             <FontAwesomeIcon icon={faPaperPlane} size={24} color={colors.primary_300} />
           </TouchableOpacity>

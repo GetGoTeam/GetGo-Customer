@@ -44,6 +44,7 @@ const ChooseVehicle = (props) => {
               setMotorcyclePrice(tripCost.totalCost);
               setMotorcycleSurcharge(tripCost.surcharge);
               setSurchargeReason(tripCost.reason);
+              if (chooseIndex === 0) setPrice(tripCost.totalCost);
             })
             .catch(function (error) {
               console.log("Calculate trip price by motorcycle error: ", error);
@@ -60,6 +61,7 @@ const ChooseVehicle = (props) => {
               const tripCost = res.data.tripCost;
               setCar4Price(tripCost.totalCost);
               setCar4Surcharge(tripCost.surcharge);
+              if (chooseIndex === 1) setPrice(tripCost.totalCost);
             })
             .catch(function (error) {
               console.log("Calculate trip price by car4 error: ", error);

@@ -9,7 +9,8 @@ import { request } from "~utils/request";
 
 const roundNumber = (n) => {
   if (n === 0) return 0;
-  return Math.round(n / 1000) * 1000 + 1000;
+  else if (Number.isInteger(n)) return n;
+  else return Math.round(n / 1000) * 1000 + 1000;
 };
 
 const ChooseVehicle = (props) => {

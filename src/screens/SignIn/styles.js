@@ -11,7 +11,7 @@ const styles = EStyleSheet.create({
   },
   background: {
     height: "66%",
-    width: "125%",
+    width: "120%",
     position: "absolute",
     bottom: 0,
     borderTopRightRadius: "18rem",

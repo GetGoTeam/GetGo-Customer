@@ -11,6 +11,8 @@ const initialState = {
   userInfo: null,
   driver: null,
   trip: null,
+  otpPhone: null,
+  otpToken: null,
 };
 
 export const navSlice = createSlice({
@@ -47,6 +49,12 @@ export const navSlice = createSlice({
     setTrip: (state, action) => {
       state.trip = action.payload;
     },
+    setOtpPhone: (state, action) => {
+      state.otpPhone = action.payload;
+    },
+    setOtpToken: (state, action) => {
+      state.otpToken = action.payload;
+    },
   },
 });
 
@@ -61,6 +69,8 @@ export const {
   setUserInfo,
   setDriver,
   setTrip,
+  setOtpPhone,
+  setOtpToken,
 } = navSlice.actions;
 
 // Selectors
@@ -74,5 +84,7 @@ export const selectToken = (state) => state.nav.token;
 export const selectUserInfo = (state) => state.nav.userInfo;
 export const selectDriver = (state) => state.nav.driver;
 export const selectTrip = (state) => state.nav.trip;
+export const selectOtpPhone = (state) => state.nav.otpPhone;
+export const selectOtpToken = (state) => state.nav.otpToken;
 
 export default navSlice.reducer;

@@ -106,7 +106,7 @@ const SignIn = () => {
         </TouchableOpacity>
         <View style={styles.signUpContainer}>
           <Text style={styles.text}>Chưa có tài khoản?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Otp")}>
             <Text style={styles.signUpBtn}>Đăng ký ngay</Text>
           </TouchableOpacity>
         </View>

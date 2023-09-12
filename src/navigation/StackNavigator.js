@@ -10,6 +10,7 @@ import SignUp from "~screens/SignUp";
 import Feedback from "~screens/Feedback";
 import Report from "~screens/Report";
 import Chat from "~screens/Chat";
+import Otp from "~screens/Otp";
 
 const MainStack = createStackNavigator();
 const MainStackNavigator = () => {
@@ -21,7 +22,6 @@ const MainStackNavigator = () => {
       }}
     >
       <MainStack.Screen name="SignIn" component={SignIn} />
-      <MainStack.Screen name="SignUp" component={SignUp} />
       <MainStack.Screen name="MainScreen" component={MainScreen} />
       <MainStack.Screen name="ChooseDestination" component={ChooseDestination} />
       <MainStack.Screen name="ChooseDestinationOnMap" component={ChooseDestinationOnMap} />
@@ -30,6 +30,8 @@ const MainStackNavigator = () => {
       <MainStack.Screen name="Feedback" component={Feedback} />
       <MainStack.Screen name="Report" component={Report} />
       <MainStack.Screen name="Chat" component={Chat} />
+      <MainStack.Screen name="Otp" component={Otp} />
+      <MainStack.Screen name="SignUp" component={SignUp} />
     </MainStack.Navigator>
   );
 };

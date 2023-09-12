@@ -10,12 +10,12 @@ const styles = EStyleSheet.create({
     width: "100%",
   },
   background: {
-    height: "66%",
+    height: "55%",
     width: "120%",
     position: "absolute",
     bottom: 0,
-    borderTopRightRadius: "18rem",
-    borderTopLeftRadius: "9rem",
+    borderTopRightRadius: 260,
+    borderTopLeftRadius: 170,
   },
   backBtn: {
     position: "absolute",

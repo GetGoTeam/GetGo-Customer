@@ -57,6 +57,7 @@ const BookVehicle = () => {
   const [tripId, setTripId] = useState();
   const [driverInfo, setDriverInfo] = useState();
   const [price, setPrice] = useState(0);
+  const [surcharge, setSurcharge] = useState(0);
 
   const headers = {
     Authorization: "Bearer " + token,
@@ -166,6 +167,7 @@ const BookVehicle = () => {
       long_destination: destination.longitude,
       vehicleType: vehiclechoose === "motorcycle" ? 1 : vehiclechoose === "car4" ? 4 : 7,
       price: price,
+      surcharge: surcharge,
     };
     await request
       .post("create-trip", body, {
@@ -340,6 +342,7 @@ const BookVehicle = () => {
                   origin={origin}
                   setLoading={setLoading}
                   setPrice={setPrice}
+                  setSurcharge={setSurcharge}
                 />
               ) : (
                 <ChooseeMethod

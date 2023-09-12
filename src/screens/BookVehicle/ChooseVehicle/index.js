@@ -16,7 +16,7 @@ const ChooseVehicle = (props) => {
   const vehicleType = useSelector(selectVehicleType);
   const [chooseIndex, setChooseIndex] = useState(vehicleType === "motorcycle" ? 0 : 1);
   const dispatch = useDispatch();
-  const { setVehicleChoose, distanceMotocycle, distanceCar, origin, setLoading, setPrice } = props;
+  const { setVehicleChoose, distanceMotocycle, distanceCar, origin, setLoading, setPrice, setSurcharge } = props;
   const [loadingPrice, setLoadingPrice] = useState(false);
   const [motorcyclePrice, setMotorcyclePrice] = useState(0);
   const [motorcycleSurcharge, setMotorcycleSurcharge] = useState(0);
@@ -44,7 +44,10 @@ const ChooseVehicle = (props) => {
               setMotorcyclePrice(tripCost.totalCost);
               setMotorcycleSurcharge(tripCost.surcharge);
               setSurchargeReason(tripCost.reason);
-              if (chooseIndex === 0) setPrice(tripCost.totalCost);
+              if (chooseIndex === 0) {
+                setPrice(tripCost.totalCost);
+                setSurcharge(tripCost.surcharge);
+              }
             })
             .catch(function (error) {
               console.log("Calculate trip price by motorcycle error: ", error);
@@ -61,7 +64,10 @@ const ChooseVehicle = (props) => {
               const tripCost = res.data.tripCost;
               setCar4Price(tripCost.totalCost);
               setCar4Surcharge(tripCost.surcharge);
-              if (chooseIndex === 1) setPrice(tripCost.totalCost);
+              if (chooseIndex === 1) {
+                setPrice(tripCost.totalCost);
+                setSurcharge(tripCost.surcharge);
+              }
             })
             .catch(function (error) {
               console.log("Calculate trip price by car4 error: ", error);
@@ -127,6 +133,7 @@ const ChooseVehicle = (props) => {
                 dispatch(setVehicleType(item.type));
                 setVehicleChoose(item.type);
                 setPrice(item.price);
+                setSurcharge(item.surcharge);
               }}
             >
               {index === 0 && <View style={styles.divLine} />}

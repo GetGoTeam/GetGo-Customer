@@ -8,8 +8,7 @@ import { useSelector } from "react-redux";
 import { request } from "~utils/request";
 
 const roundNumber = (n) => {
-  if (n === 0) return 0;
-  else if (Number.isInteger(n)) return n;
+  if (n % 1000 === 0) return n;
   else return Math.round(n / 1000) * 1000 + 1000;
 };
 

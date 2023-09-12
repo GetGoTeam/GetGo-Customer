@@ -56,6 +56,7 @@ const BookVehicle = () => {
   const socket = io(`${baseURL}:3014`);
   const [tripId, setTripId] = useState();
   const [driverInfo, setDriverInfo] = useState();
+  const [price, setPrice] = useState(0);
 
   const headers = {
     Authorization: "Bearer " + token,
@@ -164,6 +165,7 @@ const BookVehicle = () => {
       lat_destination: destination.latitude,
       long_destination: destination.longitude,
       vehicleType: vehiclechoose === "motorcycle" ? 1 : vehiclechoose === "car4" ? 4 : 7,
+      price: price,
     };
     await request
       .post("create-trip", body, {
@@ -337,6 +339,7 @@ const BookVehicle = () => {
                   distanceCar={distanceCar}
                   origin={origin}
                   setLoading={setLoading}
+                  setPrice={setPrice}
                 />
               ) : (
                 <ChooseeMethod

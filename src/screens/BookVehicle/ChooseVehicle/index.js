@@ -16,7 +16,7 @@ const ChooseVehicle = (props) => {
   const vehicleType = useSelector(selectVehicleType);
   const [chooseIndex, setChooseIndex] = useState(vehicleType === "motorcycle" ? 0 : 1);
   const dispatch = useDispatch();
-  const { setVehicleChoose, distanceMotocycle, distanceCar, origin, setLoading } = props;
+  const { setVehicleChoose, distanceMotocycle, distanceCar, origin, setLoading, setPrice } = props;
   const [loadingPrice, setLoadingPrice] = useState(false);
   const [motorcyclePrice, setMotorcyclePrice] = useState(0);
   const [motorcycleSurcharge, setMotorcycleSurcharge] = useState(0);
@@ -124,6 +124,7 @@ const ChooseVehicle = (props) => {
                 setChooseIndex(index);
                 dispatch(setVehicleType(item.type));
                 setVehicleChoose(item.type);
+                setPrice(item.price);
               }}
             >
               {index === 0 && <View style={styles.divLine} />}

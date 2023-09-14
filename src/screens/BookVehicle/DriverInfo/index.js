@@ -25,25 +25,25 @@ const DriverInfo = (props) => {
         <View style={styles.personalInfoContainer}>
           <Image style={styles.avatar} source={require("~assets/no-avatar.png")} />
           <View style={styles.nameRateContainer}>
-            <Text style={styles.name}>{driverInfo.username}</Text>
+            <Text style={styles.name}>{driverInfo?.username}</Text>
             <View style={styles.rateContainer}>
-              <Text style={styles.rate}>{driverInfo.rated}</Text>
+              <Text style={styles.rate}>{driverInfo?.rated}</Text>
               <FontAwesomeIcon icon={faStar} size={13} color={"#FFCF00"} />
             </View>
           </View>
         </View>
         <View style={styles.vehicleInfoContainer}>
-          <Text style={styles.plate}>{driverInfo.vehicle.licensePlate}</Text>
+          <Text style={styles.plate}>{driverInfo?.vehicle.licensePlate}</Text>
           <View style={styles.vehicleNameContainer}>
             <FontAwesomeIcon
-              icon={driverInfo.vehicle.capacity === 1 ? faMotorcycle : faCarSide}
+              icon={driverInfo?.vehicle.capacity === 1 ? faMotorcycle : faCarSide}
               size={18}
               color={colors.primary_300}
             />
             <Text style={styles.vehicleName}>
-              {driverInfo.vehicle.capacity === 1
+              {driverInfo?.vehicle.capacity === 1
                 ? "Yamaha - Sirius"
-                : driverInfo.vehicle.capacity === 4
+                : driverInfo?.vehicle.capacity === 4
                 ? "Toyota - Vios"
                 : "Mitsubishi - Xpander"}
             </Text>
